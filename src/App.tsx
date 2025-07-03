@@ -3,7 +3,7 @@ import "./App.css"
 function App() {
 	return (
 		<>
-			<div className="flex text-red-600">
+			<div className="flex text-green-600">
 				<p>Ciao</p>
 			</div>
 		</>
