@@ -12,3 +12,6 @@ Prima schermata:
 - Nell'header sarà presente pulsante per fare il logout
 - Avatar utente, punteggio, nome utente, moduli ottenuti e moduli ancora da ottenere (bottoni che cliccandoli ti porta direttamente al quiz per quella categoria)
 - Lo sblocco delle categorie sarà sequenziale
+
+- Pagina utente:
+- Riepilogo del percorso, punteggio, achievements, amici e relativo punteggio
