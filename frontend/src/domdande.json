@@ -1,0 +1,46 @@
+{
+  "html": {
+	"questions": [
+	  {
+		"question": "Qual è la capitale della Francia?",
+		"correct_answer": "Parigi",
+		"wrong_answers": [
+		  "Madrid",
+		  "Berlino",
+		  "Roma"
+		]
+	  },
+	  {
+		"question": "Quale linguaggio viene eseguito nel browser?",
+		"correct_answer": "JavaScript",
+		"wrong_answers": [
+		  "Python",
+		  "C++",
+		  "Java"
+		]
+	  }
+	],
+	"javascript": {
+	  "questions": [
+		{
+		  "question": "Qual è la capitale della Francia?",
+		  "correct_answer": "Parigi",
+		  "wrong_answers": [
+			"Madrid",
+			"Berlino",
+			"Roma"
+		  ]
+		},
+		{
+		  "question": "Quale linguaggio viene eseguito nel browser?",
+		  "correct_answer": "JavaScript",
+		  "wrong_answers": [
+			"Python",
+			"C++",
+			"Java"
+		  ]
+		}
+	  ]
+	}
+  }
+}
