@@ -15,3 +15,5 @@ Prima schermata:
 
 - Pagina utente:
 - Riepilogo del percorso, punteggio, achievements, amici e relativo punteggio
+
+- Pagina finale con ringraziamenti (la frase la scrive Lucia)
