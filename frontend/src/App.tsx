@@ -1,11 +1,9 @@
-import "./App.css"
+import Layout from "./components/Layout"
 
 function App() {
 	return (
 		<>
-			<div className="flex text-green-600">
-				<p>Ciao</p>
-			</div>
+		<Layout>Ciao</Layout>
 		</>
 	)
 }
