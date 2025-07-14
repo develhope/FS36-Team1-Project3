@@ -6,7 +6,7 @@ interface layoutProps {
 
 function Layout({ children }: layoutProps) {
 	return (
-		<div className="w-full flex text-green-600">
+		<div className="flex text-green-600">
 			<p>{children}</p>
 		</div>
 	)

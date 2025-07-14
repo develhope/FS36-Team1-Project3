@@ -4,7 +4,7 @@ import AccessPage from "./pages/AccessPage"
 function App() {
 	return (
 		<>
-			<Layout>Ciao</Layout>
+			{/*<Layout>Ciao</Layout>*/}
 			<AccessPage />
 		</>
 	)

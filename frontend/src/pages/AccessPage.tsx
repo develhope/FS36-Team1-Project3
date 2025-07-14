@@ -32,7 +32,7 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 			<div className="mb-10">
 				<img src="https://placehold.co/200" />
 			</div>
-			{/* Wrapare il form in un conteitore */}
+
 			<form className="w-full mt-5 p-4 text-my-black ">
 				{isNewUser && (
 					<div className="flex flex-col mb-5">
