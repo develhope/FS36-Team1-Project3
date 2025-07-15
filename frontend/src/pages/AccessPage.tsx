@@ -1,82 +1,86 @@
+import { useState } from "react"
+
 interface AccessPageProps {
 	isNewUser: boolean
 }
 
+// La prop 'isNewUser' viene usata per impostare il valore iniziale dello stato.
 const AccessPage = ({ isNewUser }: AccessPageProps) => {
-	{
-		/*
-        Cose da fare:
-        Rendering condizionale con la prop isNewUser
+	const [isNew, setIsNew] = useState(isNewUser)
 
-        Prendere le icone, stile, al bottone, controlli al form controllato
-        
-        Aggiungere Immagine come nel Mock
-
-
-        Domande ad alessandro: 
-
-        Come faccio a mettere nel radial-gradient le classi tailwind, non mi funzionano
-
-        Se metto il componente wrappato dentro Layout non riesco a dargli una w-full 
-        
-        */
+	function toggleState() {
+		!isNew ? setIsNew(true) : setIsNew(false)
 	}
 
-	const submitValue: string = isNewUser ? "Registrati" : "Accedi"
+	const submitValue: string = isNew ? "Registrati" : "Accedi"
 
+	const switchModeText: string = !isNew
+		? " Sei un nuovo utente? Registrati"
+		: "Sei già utente? accedi"
 	return (
 		<div
-			className="flex flex-col items-center justify-center h-screen border-4 border-indigo-500  
-            bg-[radial-gradient(circle,_#A283FF,_#BEA8FF,_#DED2FF)] "
+			className="flex flex-col items-center justify-center min-h-screen p-4
+            bg-[radial-gradient(circle,_#A283FF,_#BEA8FF,_#DED2FF)]"
 		>
 			<div className="mb-10">
-				<img src="https://placehold.co/200" />
+				<img src="https://placehold.co/200" alt="logo" />
 			</div>
 
-			<form className="w-full mt-5 p-4 text-my-black ">
-				{isNewUser && (
+			<form className="w-full max-w-sm mt-5 text-my-black">
+				{/* Il campo "Nome" appare solo se 'isNew' è true */}
+				{isNew && (
 					<div className="flex flex-col mb-5">
-						<label htmlFor="Nome">Nome</label>
+						<label htmlFor="name" className="mb-1">
+							Nome
+						</label>
 						<input
-							className="h-10 bg-my-white rounded-2xl "
+							className="h-10 px-4 bg-my-white rounded-2xl"
 							type="text"
 							id="name"
 							name="name"
-							placeholder=" Inserisci nome "
+							placeholder="Inserisci nome"
 							required
 						/>
 					</div>
 				)}
 
 				<div className="flex flex-col mb-5">
-					<label htmlFor="email">Email</label>
+					<label htmlFor="email" className="mb-1">
+						Email
+					</label>
 					<input
-						className="h-10 bg-my-white rounded-2xl "
+						className="h-10 px-4 bg-my-white rounded-2xl"
 						type="email"
 						id="email"
 						name="email"
-						placeholder=" Inserisci email "
+						placeholder="Inserisci email"
 						required
 					/>
 				</div>
+
 				<div className="flex flex-col mb-5">
-					<label htmlFor="password">Password</label>
+					<label htmlFor="password" className="mb-1">
+						Password
+					</label>
 					<input
-						className="h-10 bg-my-white rounded-2xl "
+						className="h-10 px-4 bg-my-white rounded-2xl"
 						type="password"
 						id="password"
 						name="password"
-						placeholder=" Inserisci password "
+						placeholder="Inserisci password"
 						required
 					/>
 				</div>
+
 				<button
-					className="w-full mt-5 rounded-2xl h-15 text-my-white bg-my-light-purple-300"
+					className="w-full mt-5 rounded-2xl h-12 text-my-white bg-my-light-purple-300 font-bold"
 					type="submit"
 				>
 					{submitValue}
 				</button>
 			</form>
+
+			<a onClick={toggleState}>{switchModeText}</a>
 		</div>
 	)
 }
