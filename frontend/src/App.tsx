@@ -1,9 +1,12 @@
-import Layout from "./components/Layout"
+// import Layout from "./components/Layout"
+
+import Quiz from "./components/Quiz"
 
 function App() {
 	return (
 		<>
-		<Layout>Ciao</Layout>
+			{/* <Layout>Ciao</Layout> */}
+			<Quiz />
 		</>
 	)
 }
