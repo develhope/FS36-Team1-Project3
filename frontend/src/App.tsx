@@ -1,6 +1,6 @@
 // import Layout from "./components/Layout"
 
-import EndQuiz from "./components/EndQuiz"
+import EndQuiz from "./EndQuiz"
 
 function App() {
 	return (
