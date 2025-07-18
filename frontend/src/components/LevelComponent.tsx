@@ -9,9 +9,9 @@ export function LevelComponent({argomento, img, check, value}: LevelComponentPro
 
     return(
         <>
-        <div className="bg-violet-200 p-5 m-7 rounded-[25px] text-[12px]">
+        <div className="bg-my-light-purple-100 p-5 m-7 rounded-[25px] text-[12px]">
             <div className="flex flex-row">
-                <div className="bg-violet-100 w-[110px] h-[110px] rounded-[25px]">
+                <div className="bg-my-dark-purple-100 w-[110px] h-[110px] rounded-[25px]">
                     <img className="max-w-[100%] p-3" src={img}/>
                 </div>
                 <div className="flex flex-col ml-10">
@@ -20,7 +20,7 @@ export function LevelComponent({argomento, img, check, value}: LevelComponentPro
                             <p>Completato:</p>
                             <b> {argomento}</b>
                         </div>
-                        <div className="bg-violet-100 ml-20 w-[30px] h-[30px] rounded-[50px]">
+                        <div className="bg-my-dark-purple-100 ml-20 w-[30px] h-[30px] rounded-[50px]">
                             <img className="p-1 w-[29px] h-[29px]" src={check} />
                         </div>
                     </div>
