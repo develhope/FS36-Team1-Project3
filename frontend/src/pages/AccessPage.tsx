@@ -27,7 +27,7 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 		setErrors({ username: "", email: "", password: "" })
 	}
 
-	// --- Funzioni di validazione (invariate) ---
+	//Funzioni di validazione
 
 	const handleUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value
