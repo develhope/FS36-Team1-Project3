@@ -33,7 +33,7 @@ export default function Quiz() {
 					<ul className="mt-[50px]">
 						{current.answers.map((answer, index) => (
 							<li
-								className=" text-xl text-center border p-[10px] bg-my-white rounded-xl m-[10px] cursor-pointer transition-transform  duration-300 ease-in-out hover:scale-105"
+								className=" text-xl text-center border p-[10px] bg-my-white rounded-xl m-[10px] cursor-pointer transition-transform  duration-300 ease-in-out active:scale-105"
 								key={index}
 								onClick={handleClick}
 							>
