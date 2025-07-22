@@ -5,16 +5,16 @@ export function Homepage(){
 
     return(
         <>
-        <div className = "bg-violet-200 ">
+        <div className = "bg-my-light-purple-100 ">
             <div className = "flex flex-row p-10">
-                <div className = "bg-violet-100 w-[70px] h-[70px] rounded-[45px]">
+                <div className = "bg-my-dark-purple-100 w-[70px] h-[70px] rounded-[45px]">
                     <img className = "max-w-[100%] p-1" src="../public/icone/avatar.png" />
                 </div>
                 <div className = "pl-5">
                     <p>Ciao, Silvia! 👋</p>
                     <p className = "text-[12px]">@silvia</p>
                 </div>
-                <div className = "bg-violet-100 h-[30px] rounded-[15px] ml-15">
+                <div className = "bg-my-dark-purple-100 h-[30px] rounded-[15px] ml-15">
                     <p className = "pl-2 pr-2">⭐ 236 XP</p>
                 </div>
             </div>
@@ -30,7 +30,7 @@ export function Homepage(){
 
             </div>
         </div>
-        <footer className = "fixed bottom-0 left-0 w-screen bg-violet-200 h-[70px] flex flex-row items-center justify-between p-[35px] accent-inherit">
+        <footer className = "fixed bottom-0 left-0 w-screen bg-my-light-purple-100 h-[70px] flex flex-row items-center justify-between p-[35px] accent-inherit">
             <User size={"45px"}/>
             <House size={"45px"}/>
             <Trophy size={"45px"}/>
