@@ -1,11 +1,10 @@
-// import Layout from "./components/Layout"
-
+import Quiz from "./components/Quiz"
 import EndQuiz from "./EndQuiz"
 
 function App() {
 	return (
 		<>
-			{/* <Layout>Ciao</Layout> */}
+			<Quiz />
 			<EndQuiz />
 		</>
 	)
