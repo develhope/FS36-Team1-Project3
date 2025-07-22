@@ -1,13 +1,12 @@
-import AccessPage from "./pages/AccessPage"
-import Quiz from "./components/Quiz"
-import EndQuiz from "./EndQuiz"
+import {Routes, Route} from "react-router-dom";
+import AccessPage from "./pages/AccessPage.tsx";
 
 function App() {
 	return (
 		<>
-			<AccessPage isNewUser={false} />
-			<Quiz />
-			<EndQuiz />
+			<Routes>
+				<Route path="/" element={<AccessPage isNewUser={false} />} />
+			</Routes>
 		</>
 	)
 }
