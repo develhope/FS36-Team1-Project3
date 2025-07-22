@@ -1,11 +1,9 @@
-import Layout from "./components/Layout"
 import AccessPage from "./pages/AccessPage"
 
 function App() {
 	return (
 		<>
-			{/*<Layout>Ciao</Layout>*/}
-			<AccessPage />
+			<AccessPage isNewUser={false} />
 		</>
 	)
 }

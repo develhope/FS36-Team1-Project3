@@ -1,4 +1,5 @@
 import { useState } from "react"
+import login from "../../public/login.svg"
 
 interface AccessPageProps {
 	isNewUser: boolean
@@ -75,7 +76,7 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 	return (
 		<div className="flex flex-col items-center justify-center min-h-screen p-4 bg-[radial-gradient(circle,_#A283FF,_#BEA8FF,_#DED2FF)]">
 			<div className="mb-10">
-				<img src="https://placehold.co/200" alt="logo" />
+				<img className={"w-56 h-auto"} src={login} alt="logo" />
 			</div>
 
 			<form className="w-full max-w-sm mt-5 text-my-black">
