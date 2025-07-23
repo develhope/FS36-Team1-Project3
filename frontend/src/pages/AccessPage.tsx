@@ -1,5 +1,6 @@
 import { useState } from "react"
 import login from "../../public/login.svg"
+import { Link } from "react-router-dom"
 
 interface AccessPageProps {
 	isNewUser: boolean
@@ -152,12 +153,14 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 					)}
 				</div>
 
-				<button
-					className="w-full mt-5 rounded-2xl h-12 text-my-white bg-my-light-purple-300 font-bold"
-					type="submit"
-				>
-					{submitValue}
-				</button>
+				<Link to="/homepage">
+					<button
+						className="w-full mt-5 rounded-2xl h-12 text-my-white bg-my-light-purple-300 font-bold"
+						type="button"
+					>
+						{submitValue}
+					</button>
+				</Link>
 			</form>
 
 			<a onClick={toggleState} className="mt-5 cursor-pointer">

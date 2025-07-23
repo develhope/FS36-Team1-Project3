@@ -5,15 +5,18 @@ import junior from "../../public/icone/junior.png"
 import senior from "../../public/icone/senior.png"
 import diamond from "../../public/icone/diamond.png"
 import css from "../../public/icone/css.jpg"
+import { Link } from "react-router-dom"
 
 function UserPage() {
 	return (
 		<div className="bg-purple-200">
 			{/* HEADER PULSANTI */}
 			<div className="flex justify-between items-center mb-8 pt-4 px-4">
-				<button className="p-2 rounded-full bg-white/40">
-					<ChevronLeft className="w-6 h-6 text-gray-800" />
-				</button>
+				<Link to="/homepage">
+					<button className="p-2 rounded-full bg-white/40">
+						<ChevronLeft className="w-6 h-6 text-gray-800" />
+					</button>
+				</Link>
 				<button className="p-2 rounded-full bg-white/40">
 					<Settings className="w-6 h-6 text-gray-800" />
 				</button>
@@ -69,19 +72,31 @@ function UserPage() {
 					</div>
 					<div className="text-center">
 						<div className="w-15 h-15">
-							<img src={junior} alt="j_achiev" className="rounded-full shadow-md opacity-50" />
+							<img
+								src={junior}
+								alt="j_achiev"
+								className="rounded-full shadow-md opacity-50"
+							/>
 						</div>
 						<div className="text-md text-gray-400 mt-2">Junior Dev</div>
 					</div>
 					<div className="text-center">
 						<div className="w-15 h-15">
-							<img src={senior} alt="s_achiev" className="rounded-full shadow-md opacity-50" />
+							<img
+								src={senior}
+								alt="s_achiev"
+								className="rounded-full shadow-md opacity-50"
+							/>
 						</div>
 						<div className="text-md text-gray-400 mt-2">Senior Dev</div>
 					</div>
 					<div className="text-center">
 						<div className="w-15 h-15">
-							<img src={diamond} alt="d_achiev" className="rounded-full shadow-md opacity-50" />
+							<img
+								src={diamond}
+								alt="d_achiev"
+								className="rounded-full shadow-md opacity-50"
+							/>
 						</div>
 						<div className="text-md text-gray-400 mt-2">Diamond Dev</div>
 					</div>

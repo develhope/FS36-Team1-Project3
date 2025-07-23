@@ -1,6 +1,7 @@
 import { useState } from "react"
 import questions from "../domande.json"
 import { ChevronLeft } from "lucide-react"
+import { Link } from "react-router-dom"
 
 export default function Quiz() {
 	const [index, setIndex] = useState(0)
@@ -37,10 +38,15 @@ export default function Quiz() {
 								key={index}
 								onClick={handleClick}
 							>
-								{answer}
+								<p className="text-my-black">{answer}</p>
 							</li>
 						))}
 					</ul>
+					{index + 1 === questions.length && (
+						<Link to="/endmodule">
+							<button>Hai completato il modulo!</button>
+						</Link>
+					)}
 				</div>
 			</div>
 		</>
