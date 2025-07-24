@@ -9,7 +9,7 @@ import { Link } from "react-router-dom"
 
 function UserPage() {
 	return (
-		<div className="bg-purple-200">
+		<div className="bg-my-light-purple-100">
 			{/* HEADER PULSANTI */}
 			<div className="flex justify-between items-center mb-8 pt-4 px-4">
 				<Link to="/homepage">
@@ -38,21 +38,21 @@ function UserPage() {
 			{/* STATISTICHE */}
 			<div className="h-full bg-white/90 rounded-t-3xl p-6">
 				<div className="grid grid-cols-3 gap-4">
-					<div className="bg-purple-200 rounded-2xl p-4 text-center shadow-md">
+					<div className="bg-my-light-purple-100 rounded-2xl p-4 text-center shadow-md">
 						<div className="w-8 h-8 flex items-center justify-center mx-auto mb-2">
 							<Star className="w-10 h-10 text-yellow-200" fill="currentColor" />
 						</div>
 						<div className="text-xl font-bold text-gray-900">236 XP</div>
 						<div className="text-sm text-gray-600">Punti</div>
 					</div>
-					<div className="bg-purple-200 rounded-2xl p-4 text-center shadow-md">
+					<div className="bg-my-light-purple-100 rounded-2xl p-4 text-center shadow-md">
 						<div className="w-8 h-8 flex items-center justify-center mx-auto mb-2">
 							<Flame className="w-10 h-10 text-orange-400" fill="currentColor" />
 						</div>
 						<div className="text-xl font-bold text-gray-900">7 Quiz</div>
 						<div className="text-sm text-gray-600">Completati</div>
 					</div>
-					<div className="bg-purple-200 rounded-2xl p-4 text-center shadow-md">
+					<div className="bg-my-light-purple-100 rounded-2xl p-4 text-center shadow-md">
 						<div className="w-8 h-8 flex items-center justify-center mx-auto mb-2">
 							<Sprout className="w-10 h-10 text-green-500" />
 						</div>
@@ -111,7 +111,7 @@ function UserPage() {
 						</div>
 						<div>
 							<div className="text-2xl font-semibold text-gray-900">CSS</div>
-							<div className="text-md text-gray-600">5/10 domande complete</div>
+							<div className="text-md text-gray-600">7/10 domande complete</div>
 						</div>
 						<div className="w-10 h-10 flex items-center justify-center ml-14">
 							<span className="text-blue-500 text-lg">
