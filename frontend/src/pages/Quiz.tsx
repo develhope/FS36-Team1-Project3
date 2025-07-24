@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import questions from "../domande.json"
 import { ChevronLeft } from "lucide-react"
 import { Link } from "react-router-dom"
