@@ -4,8 +4,7 @@ import "./database/dbClient.js";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { apiRouter } from "./routes/api.js";
-// import { initializeDatabase } from "./database/dbClient.js";
-
+import { initializeDatabase } from "./database/dbClient.js";
 
 // Verifica NODE_ENV
 const env = process.env.NODE_ENV;
@@ -28,8 +27,8 @@ app.use("/api", apiRouter);
 
 // Avvia il server solo dopo aver inizializzato il database
 const startServer = async () => {
-  // await initializeDatabase();
-  
+  //await initializeDatabase();
+
   app.listen(port, () => {
     console.log(`Il server sta funzionando sul http://localhost:${port}/api`);
   });
