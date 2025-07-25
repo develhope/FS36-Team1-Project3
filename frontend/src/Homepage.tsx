@@ -93,7 +93,6 @@ export function Homepage() {
 					<User size={"45px"} />
 				</Link>
 				<House size={"45px"} />
-				<Trophy size={"45px"} />
 				<Link to="/">
 					<LogOut size={"45px"} />
 				</Link>
