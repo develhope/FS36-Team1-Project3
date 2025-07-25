@@ -1,11 +1,15 @@
 import { useState } from "react"
-import questions from "../domande.json"
+//import questions from "../domande.json"
+
 import { ChevronLeft } from "lucide-react"
 import { Link } from "react-router-dom"
+import { useGetQuestion } from "../hooks/useGetQuestion"
 
 export default function Quiz() {
 	const [index, setIndex] = useState(0)
+	const question = useGetQuestion("")
 	const current = questions[index]
+
 	function handleClick() {
 		if (index < questions.length - 1) {
 			setIndex((prev) => prev + 1)
