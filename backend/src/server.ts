@@ -4,6 +4,7 @@ import "./database/dbClient.js";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import { apiRouter } from "./routes/api.js";
+import cors from "cors";
 import { initializeDatabase } from "./database/dbClient.js";
 
 // Verifica NODE_ENV
@@ -21,6 +22,7 @@ const port = process.env.PORT || 3000;
 if (!port) throw new Error(`PORT non definita in .env.${env}`);
 
 export const app = express();
+app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
 app.use("/api", apiRouter);
