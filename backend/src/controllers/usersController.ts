@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { User } from "../models";
-import { fetchAllUsers, createNewUser } from "../database/queries/userQueries.js";
+import { fetchAllUsers, createNewUser, loginUser, logoutUser } from "../database/queries/userQueries.js";
 import { createNewProgress } from "../database/queries/progressQueries.js";
 
 interface ErrorResponse {
@@ -24,12 +24,12 @@ const handleControllerError = (error: any, res: Response, operation: string) => 
   sendErrorResponse(res, 500, `Failed to ${operation}`);
 };
 
-export const getAllUsers = async (_req: Request, res: Response<User[] | ErrorResponse>) => {
+export const getAllUsers = async (req: Request, res: Response<User[] | ErrorResponse>) => {
   try {
     const users = await fetchAllUsers();
     res.json(users);
   } catch (error) {
-    handleControllerError(error, res, "fetch users");
+    handleControllerError(error, res, "Fetched users successfully");
   }
 };
 
@@ -40,6 +40,27 @@ export const createNewUserController = async (req: Request, res: Response<User |
     await createNewProgress(userId);
     res.json(user);
   } catch (error) {
-    handleControllerError(error, res, "create user");
+    handleControllerError(error, res, "Created user successfully");
   }
 };
+
+export const loginUserController = async (req: Request, res: Response) => {
+  try {
+    const {username, password} = req.body;
+    const user = await loginUser(username, password);
+    res.json(user);
+  } catch (error) {
+    handleControllerError(error, res, "Login successful");
+  }
+}
+
+export const logoutUserController = async (req: Request, res: Response) => {
+  try {
+    const user:any = req.user;
+    await logoutUser(user) ;
+    res.json(user);
+  } catch (error) {
+    handleControllerError(error, res, "Logout successful");
+  }
+}
+

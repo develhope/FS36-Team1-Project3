@@ -1,5 +1,6 @@
 import { User } from "../../models";
 import { db } from "../dbClient.js";
+import { generateToken } from "../../services/generateToken";
 
 export const createNewUser = async (user: User): Promise<number> => {
   if (!user.name || !user.nickname || !user.email || !user.password) throw new Error("User is missing required fields");
@@ -37,3 +38,23 @@ export const updateUser = async (user: User): Promise<void> => {
 export const deleteUser = async (id: number): Promise<void> => {
   await db.none("DELETE FROM users WHERE id = $1", [id]);
 }
+
+export const loginUser = async (username: string, password: string): Promise<{ id: number; username: string, token: string }> => {
+const user = await db.oneOrNone("SELECT * FROM users WHERE username = $1", [username]);
+  if (!user || user.password !== password) {
+    throw new Error("Username or password not correct");
+  }
+
+  const token = generateToken({ id: user.id, username: user.username });
+  return { id: user.id, username: user.username, token }; //id, username, token as in the Promise statement
+
+  //il return è indispensabile altrimenti in Promise<{}> appare il seguente errore:
+  //"A function whose declared type is neither 'undefined', 'void', nor 'any' must return a value"
+};
+
+
+export const logoutUser = async (user:User):Promise<void> => {
+  await db.oneOrNone(`UPDATE users SET token=$1 WHERE id=$2`, [null, user?.id])
+}
+
+

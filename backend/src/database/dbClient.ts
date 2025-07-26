@@ -20,45 +20,45 @@ export const db = pgPromise({
 
 const userTableSetup = async () => {
   await db.none(`
-    CREATE TABLE IF NOT EXISTS users 
-    (id SERIAL PRIMARY KEY, 
-    name TEXT, 
-    nickname TEXT, 
+    CREATE TABLE IF NOT EXISTS users
+    (id SERIAL PRIMARY KEY,
+    name TEXT,
+    nickname TEXT,
     email TEXT,
     password TEXT,
-    created_at TIMESTAMP, 
+    created_at TIMESTAMP,
     updated_at TIMESTAMP)`);
 }
 const questionsTableSetup = async () => {
   await db.none(`
-    CREATE TABLE IF NOT EXISTS questions 
-    (id SERIAL PRIMARY KEY, 
-    questions TEXT, 
-    arguments TEXT, 
-    created_at TIMESTAMP, 
+    CREATE TABLE IF NOT EXISTS questions
+    (id SERIAL PRIMARY KEY,
+    questions TEXT,
+    arguments TEXT,
+    created_at TIMESTAMP,
     updated_at TIMESTAMP)`);
   await insertQuestionsIntoDb();
 }
 const answersTableSetup = async () => {
   await db.none(`
-    CREATE TABLE IF NOT EXISTS answers 
-    (id SERIAL PRIMARY KEY, 
-    answers TEXT, 
-    isCorrect BOOLEAN NOT NULL DEFAULT FALSE, 
-    questions_id INTEGER, 
-    created_at TIMESTAMP, 
-    updated_at TIMESTAMP, 
+    CREATE TABLE IF NOT EXISTS answers
+    (id SERIAL PRIMARY KEY,
+    answers TEXT,
+    isCorrect BOOLEAN NOT NULL DEFAULT FALSE,
+    questions_id INTEGER,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
     FOREIGN KEY (questions_id) REFERENCES questions(id) ON DELETE CASCADE)`);
   await insertAnswersIntoDb();
 }
 const userProgressTableSetup = async () => {
   await db.none(`
-    CREATE TABLE IF NOT EXISTS progress 
-    (id SERIAL PRIMARY KEY, 
-    user_id INTEGER, 
-    progress INTEGER, 
-    created_at TIMESTAMP, 
-    updated_at TIMESTAMP, 
+    CREATE TABLE IF NOT EXISTS progress
+    (id SERIAL PRIMARY KEY,
+    user_id INTEGER,
+    progress INTEGER,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE)
     `);
 }

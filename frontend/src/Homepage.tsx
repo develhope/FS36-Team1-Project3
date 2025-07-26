@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { LevelComponent } from "./components/LevelComponent"
-import { User, House, Trophy, LogOut } from "lucide-react"
+import { User, House, LogOut } from "lucide-react"
 import avatar from "../public/icone/avatar2.svg"
 
 export function Homepage() {
