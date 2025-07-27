@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { LevelComponent } from "../components/LevelComponent"
 import { User, House, LogOut } from "lucide-react"
-import avatar from "../public/icone/avatar2.svg"
+import avatar from "../../public/icone/avatar2.svg"
 import { useArgumentContext } from "../context/argument/useArgumentContext"
 
 export function Homepage() {
@@ -28,8 +28,8 @@ export function Homepage() {
 					<Link to="/quiz">
 						<LevelComponent
 							argomento="html"
-							img="../public/icone/html.jpg"
-							check="../public/icone/check.jpg"
+							img="../../public/icone/html.jpg"
+							check="../../public/icone/check.jpg"
 							value={100}
 							setContext={setArgument}
 						/>
@@ -37,8 +37,8 @@ export function Homepage() {
 					<Link to="/quiz">
 						<LevelComponent
 							argomento="css"
-							img="../public/icone/css.jpg"
-							check="../public/icone/open-lock.png"
+							img="../../public/icone/css.jpg"
+							check="../../public/icone/open-lock.png"
 							value={70}
 							setContext={setArgument}
 						/>
@@ -46,8 +46,8 @@ export function Homepage() {
 					<Link to="/quiz">
 						<LevelComponent
 							argomento="javascript"
-							img="../public/icone/js.png"
-							check="../public/icone/closed-lock.png"
+							img="../../public/icone/js.png"
+							check="../../public/icone/closed-lock.png"
 							value={0}
 							setContext={setArgument}
 						/>
@@ -55,8 +55,8 @@ export function Homepage() {
 					<Link to="/quiz">
 						<LevelComponent
 							argomento="typescript"
-							img="../public/icone/ts.png"
-							check="../public/icone/closed-lock.png"
+							img="../../public/icone/ts.png"
+							check="../../public/icone/closed-lock.png"
 							value={0}
 							setContext={setArgument}
 						/>
@@ -64,8 +64,8 @@ export function Homepage() {
 					<Link to="/quiz">
 						<LevelComponent
 							argomento="react"
-							img="../public/icone/react.png"
-							check="../public/icone/closed-lock.png"
+							img="../../public/icone/react.png"
+							check="../../public/icone/closed-lock.png"
 							value={0}
 							setContext={setArgument}
 						/>
@@ -73,8 +73,8 @@ export function Homepage() {
 					<Link to="/quiz">
 						<LevelComponent
 							argomento="sql"
-							img="../public/icone/sql.png"
-							check="../public/icone/closed-lock.png"
+							img="../../public/icone/sql.png"
+							check="../../public/icone/closed-lock.png"
 							value={0}
 							setContext={setArgument}
 						/>
@@ -82,8 +82,8 @@ export function Homepage() {
 					<Link to="/quiz">
 						<LevelComponent
 							argomento="git"
-							img="../public/icone/git.png"
-							check="../public/icone/closed-lock.png"
+							img="../../public/icone/git.png"
+							check="../../public/icone/closed-lock.png"
 							value={0}
 							setContext={setArgument}
 						/>
@@ -91,8 +91,8 @@ export function Homepage() {
 					<Link to="/quiz">
 						<LevelComponent
 							argomento="node"
-							img="../public/icone/nodejs.png"
-							check="../public/icone/closed-lock.png"
+							img="../../public/icone/nodejs.png"
+							check="../../public/icone/closed-lock.png"
 							value={0}
 							setContext={setArgument}
 						/>

@@ -15,7 +15,6 @@ potrebbe non essere la soluzione migliore, vedi se trovi di meglio
     nickname: "",
     email: "",
   });
-  setUserState(prev => ({...prev, name: "ci andrà la response"}))
 
   const userMemo = useMemo(() => userState, [userState]);
   
