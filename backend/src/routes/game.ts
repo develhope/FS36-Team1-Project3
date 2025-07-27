@@ -4,4 +4,4 @@ import { getQuestionsAndAnswers, incomingAnswersFrontend } from "../controllers/
 export const gameRouter = Router();
 
 gameRouter.get("/:arg", getQuestionsAndAnswers);
-gameRouter.post("/:arg/sendAnswers", incomingAnswersFrontend);
+gameRouter.post("/:arg/send-answers", incomingAnswersFrontend);

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { questionsAnswersManager } from "../services/questionsAnswersManager.js";
 import { countCorrectAnswers } from "../services/howManyCorrectAnswers.js";
 import { getUserIdByEmail } from "../database/queries/userQueries.js";
-import { updateScore } from "../database/queries/progressQueries.js";
+import { scoreResult } from "../services/scoreResult.js";
 
 export const getQuestionsAndAnswers = async (req: Request, res: Response) => {
     const { arg } = req.params;
@@ -15,6 +15,7 @@ export const incomingAnswersFrontend = async (req: Request, res: Response) => {
     const { answers, email } = req.body;
     const result = await countCorrectAnswers(answers, arg);
     const userId = await getUserIdByEmail(email);
-    await updateScore(userId, result);
+    await scoreResult(userId, result);
+    // al momento non verifica se l'utente ha già giocato a quell'argomento
     res.json(result);
 }
