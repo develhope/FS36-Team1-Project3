@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom"
-import { LevelComponent } from "./components/LevelComponent"
+import { LevelComponent } from "../components/LevelComponent"
 import { User, House, LogOut } from "lucide-react"
 import avatar from "../public/icone/avatar2.svg"
+import { useArgumentContext } from "../context/argument/useArgumentContext"
 
 export function Homepage() {
+	const { setArgument } = useArgumentContext()
+
 	return (
 		<>
 			<div className="bg-my-light-purple-100 ">
@@ -24,66 +27,74 @@ export function Homepage() {
 				<div className="bg-white rounded-t-[25px] pt-1">
 					<Link to="/quiz">
 						<LevelComponent
-							argomento="HTML"
+							argomento="html"
 							img="../public/icone/html.jpg"
 							check="../public/icone/check.jpg"
 							value={100}
+							setContext={setArgument}
 						/>
 					</Link>
 					<Link to="/quiz">
 						<LevelComponent
-							argomento="CSS"
+							argomento="css"
 							img="../public/icone/css.jpg"
 							check="../public/icone/open-lock.png"
 							value={70}
+							setContext={setArgument}
 						/>
 					</Link>
 					<Link to="/quiz">
 						<LevelComponent
-							argomento="JAVASCRIPT"
+							argomento="javascript"
 							img="../public/icone/js.png"
 							check="../public/icone/closed-lock.png"
 							value={0}
+							setContext={setArgument}
 						/>
 					</Link>
 					<Link to="/quiz">
 						<LevelComponent
-							argomento="TYPESCRIPT"
+							argomento="typescript"
 							img="../public/icone/ts.png"
 							check="../public/icone/closed-lock.png"
 							value={0}
+							setContext={setArgument}
 						/>
 					</Link>
 					<Link to="/quiz">
 						<LevelComponent
-							argomento="REACT"
+							argomento="react"
 							img="../public/icone/react.png"
 							check="../public/icone/closed-lock.png"
 							value={0}
+							setContext={setArgument}
 						/>
 					</Link>
 					<Link to="/quiz">
 						<LevelComponent
-							argomento="SQL"
+							argomento="sql"
 							img="../public/icone/sql.png"
 							check="../public/icone/closed-lock.png"
 							value={0}
+							setContext={setArgument}
 						/>
 					</Link>
 					<Link to="/quiz">
 						<LevelComponent
-							argomento="GIT"
+							argomento="git"
 							img="../public/icone/git.png"
 							check="../public/icone/closed-lock.png"
 							value={0}
+							setContext={setArgument}
 						/>
 					</Link>
 					<Link to="/quiz">
 						<LevelComponent
-							argomento="NODEJS"
+							argomento="node"
 							img="../public/icone/nodejs.png"
 							check="../public/icone/closed-lock.png"
 							value={0}
+							setContext={setArgument}
 						/>
 					</Link>
 				</div>
