@@ -18,10 +18,14 @@ const Quiz = () => {
 	const showEndQuizButton: boolean = clickedAnswer.length === questionNumber
 
 	
+	const handleBackToHomepage = () => {
+		navigate("/homepage")
+		setResponse([])
+	}
+
 	const handlePrev = () => {
 		if (index === 0) {
-			navigate("/homepage")
-			setResponse([])
+			handleBackToHomepage()
 		}
 		if (index > 0) {
 			setIndex(index - 1)
@@ -86,18 +90,28 @@ const Quiz = () => {
 					</>
 					)}
 					{showEndQuizButton && (
-						<>
-						<button
-							onClick={handleEndQuiz}
-							disabled={isLoading}
-							className="bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-bold text-lg py-4 px-10 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl relative overflow-hidden w-full"
-						>
-							<span className="absolute inset-0 pointer-events-none">
-								<span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[shimmer_2s_infinite]" />
-							</span>
-							<span className="relative z-10">Vedi i risultati</span>
-						</button>
-						</>
+						<div className="flex justify-center items-center h-screen gap-10 p-10">
+							<button
+								onClick={handleBackToHomepage}
+								disabled={isLoading}
+								className="bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-bold text-lg py-4 px-10 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl relative overflow-hidden w-full"
+							>
+								<span className="absolute inset-0 pointer-events-none">
+									<span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[shimmer_2s_infinite]" />
+								</span>
+								<span className="relative z-10">Home</span>
+							</button>
+							<button
+								onClick={handleEndQuiz}
+								disabled={isLoading}
+								className="bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-bold text-lg py-4 px-10 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl relative overflow-hidden w-full"
+							>
+								<span className="absolute inset-0 pointer-events-none">
+									<span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[shimmer_2s_infinite]" />
+								</span>
+								<span className="relative z-10">Vedi i risultati</span>
+							</button>
+						</div>
 					)}
 			</div>
 		</>
