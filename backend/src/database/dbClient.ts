@@ -56,7 +56,7 @@ const userProgressTableSetup = async () => {
     CREATE TABLE IF NOT EXISTS progress
     (id SERIAL PRIMARY KEY,
     user_id INTEGER,
-    progress INTEGER,
+    score INTEGER,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE)
