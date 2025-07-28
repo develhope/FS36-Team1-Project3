@@ -5,17 +5,23 @@ import { useGetQuestion } from "../hooks/fetch/useGetQuestion"
 import { useSendAnswers } from "../hooks/fetch/useSendAnswers"
 
 const Quiz = () => {
-	const [index, setIndex] = useState(0)
-	const { response } = useGetQuestion()
-	const [clickedAnswer, setClickedAnswer] = useState<string[]>([])
+	const { response, setResponse } = useGetQuestion()
 	const { sendAnswers, isLoading, setIsLoading } = useSendAnswers()
+	
 	const navigate = useNavigate()
+	
+	const [clickedAnswer, setClickedAnswer] = useState<string[]>([])
+	const [index, setIndex] = useState(0)
+	
 	const current = response?.[index]
-	const showEndQuizButton: boolean = clickedAnswer.length === response?.length
+	const questionNumber = response?.length
+	const showEndQuizButton: boolean = clickedAnswer.length === questionNumber
+
 	
 	const handlePrev = () => {
 		if (index === 0) {
 			navigate("/homepage")
+			setResponse([])
 		}
 		if (index > 0) {
 			setIndex(index - 1)
@@ -23,7 +29,7 @@ const Quiz = () => {
 	}
 
 	const handleNext = (answer: string) => {
-		if (index < (response?.length ?? 0) - 1) {
+		if (index < (questionNumber ?? 0) - 1) {
 			setIndex(index + 1)
 		}
 		setClickedAnswer((prev) => [...prev, answer])
@@ -35,11 +41,11 @@ const Quiz = () => {
 		}
 		setIsLoading(true)
 		try {
-			const postResult = await sendAnswers(clickedAnswer)
+			const postResult: number = await sendAnswers(clickedAnswer)
 			console.log(`postResult dentro quiz: ${postResult}`)
 			const endModuleArgument = {
 				quizResult: postResult,
-				questionNumber: response?.length,
+				questionNumber: questionNumber,
 			}
 			navigate("/endmodule", { state: endModuleArgument })
 		} catch (error) {
@@ -61,7 +67,7 @@ const Quiz = () => {
 				<div className="mb-[100px]">qui ci va la barra di scorrimento</div>
 				<div className="p-6 mt-[200px]">
 					<p className="text-sm my-black mb-2">
-						Domanda {index + 1} di {response?.length}
+						Domanda {index + 1} di {questionNumber}
 					</p>
 					<p className="text-2xl font-bold mt-[30px]">{current?.question}</p>
 					<ul className="mt-[50px]">
@@ -76,16 +82,16 @@ const Quiz = () => {
 						))}
 					</ul>
 					{showEndQuizButton && (
-							<button
-								onClick={handleEndQuiz}
-								disabled={isLoading}
-								className="bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-bold text-lg py-4 px-10 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl animate-button-appear relative overflow-hidden w-full"
-							>
-								<span className="absolute inset-0 pointer-events-none">
-									<span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[shimmer_2s_infinite]" />
-								</span>
-								<span className="relative z-10">Vedi i risultati</span>
-							</button>
+						<button
+							onClick={handleEndQuiz}
+							disabled={isLoading}
+							className="bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-bold text-lg py-4 px-10 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl animate-button-appear relative overflow-hidden w-full"
+						>
+							<span className="absolute inset-0 pointer-events-none">
+								<span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[shimmer_2s_infinite]" />
+							</span>
+							<span className="relative z-10">Vedi i risultati</span>
+						</button>
 					)}
 				</div>
 			</div>
