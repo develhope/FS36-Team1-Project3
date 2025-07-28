@@ -1,6 +1,6 @@
 import { User } from "../../models";
 import { db } from "../dbClient.js";
-import { generateToken } from "../../services/generateToken";
+import { generateToken } from "../../services/generateToken.js";
 
 export const createNewUser = async (user: User): Promise<number> => {
   if (!user.name || !user.nickname || !user.email || !user.password) throw new Error("User is missing required fields");

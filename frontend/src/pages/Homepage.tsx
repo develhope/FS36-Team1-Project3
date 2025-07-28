@@ -3,9 +3,11 @@ import { LevelComponent } from "../components/LevelComponent"
 import { User, House, LogOut } from "lucide-react"
 import avatar from "../../public/icone/avatar2.svg"
 import moduli from "../moduli.json"
+import { useArgumentContext } from "../context/argument/useArgumentContext"
 
 export function Homepage() {
-	console.log(moduli)
+	const { setArgument } = useArgumentContext()
+
 	return (
 		<>
 			<div className="bg-my-light-purple-100 ">
