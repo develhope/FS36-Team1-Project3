@@ -1,50 +1,50 @@
 [
 	{
 		"argomento": "html",
-		"img": "../public/icone/html.jpg",
-		"check": "../public/icone/check.jpg",
+		"img": "../icone/html.jpg",
+		"check": "../icone/check.jpg",
 		"value": 100
 	},
 	{
 		"argomento": "css",
-		"img": "../public/icone/css.jpg",
-		"check": "../public/icone/open-lock.png",
+		"img": "../icone/css.jpg",
+		"check": "../icone/open-lock.png",
 		"value": 70
 	},
 	{
 		"argomento": "javascript",
-		"img": "../public/icone/js.png",
-		"check": "../public/icone/closed-lock.png",
+		"img": "../icone/js.png",
+		"check": "../icone/closed-lock.png",
 		"value": 100
 	},
 	{
 		"argomento": "typescript",
-		"img": "../public/icone/ts.png",
-		"check": "../public/icone/closed-lock.png",
+		"img": "../icone/ts.png",
+		"check": "../icone/closed-lock.png",
 		"value": 100
 	},
 	{
 		"argomento": "react",
-		"img": "../public/icone/react.png",
-		"check": "../public/icone/closed-lock.png",
+		"img": "../icone/react.png",
+		"check": "../icone/closed-lock.png",
 		"value": 100
 	},
 	{
 		"argomento": "sql",
-		"img": "../public/icone/sql.png",
-		"check": "../public/icone/closed-lock.png",
+		"img": "../icone/sql.png",
+		"check": "../icone/closed-lock.png",
 		"value": 100
 	},
 	{
 		"argomento": "git",
-		"img": "../public/icone/git.png",
-		"check": "../public/icone/closed-lock.png",
+		"img": "../icone/git.png",
+		"check": "../icone/closed-lock.png",
 		"value": 100
 	},
 	{
 		"argomento": "node",
-		"img": "../public/icone/nodejs.png",
-		"check": "../public/icone/closed-lock.png",
+		"img": "../icone/nodejs.png",
+		"check": "../icone/closed-lock.png",
 		"value": 100
 	}
 ]
