@@ -7,8 +7,10 @@ import ProgressBar from "../../components/ProgressBar.tsx"
 
 const EndModule = () => {
 	const [showResults, setShowResults] = useState(false)
+	const {quizResult, questionNumber} = useLocation().state
 
-	const location = useLocation()
+	const userName = "User Name"
+	const userRank = "User Rank"
 
 	const handleShowResult = () => {
 		setShowResults(true)
@@ -42,7 +44,7 @@ const EndModule = () => {
 							<div className="bg-purple-500 text-white px-10 py-6 rounded-2xl inline-block text-xl font-bold animate-scale-in shadow-lg text-center">
 								<div>Correct Answers</div>
 								<div className="text-xl mt-2">
-									{correctAnswers}/{totalQuestions}
+									{quizResult}/{questionNumber}
 								</div>
 							</div>
 						</div>
