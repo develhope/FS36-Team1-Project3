@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import "./end-module.css"
-import { Link } from "react-router-dom"
-import ProgressBar from "../../components/ProgressBar.tsx";
+import { Link, useLocation } from "react-router-dom"
+import ProgressBar from "../../components/ProgressBar.tsx"
 
 interface TriviaResultsProps {
 	totalQuestions: number
@@ -18,6 +18,7 @@ const TriviaResults: React.FC<TriviaResultsProps> = ({
 }) => {
 	const [showResults, setShowResults] = useState(false)
 
+	const location = useLocation()
 
 	const handleShowResult = () => {
 		setShowResults(true)
@@ -25,9 +26,7 @@ const TriviaResults: React.FC<TriviaResultsProps> = ({
 
 	return (
 		<main className="min-h-screen bg-gradient-to-b from-purple-400 via-purple-500 to-purple-600 p-4 flex items-center justify-center">
-			{!showResults && (
-				<ProgressBar callback={handleShowResult} />
-			)}
+			{!showResults && <ProgressBar callback={handleShowResult} />}
 
 			{showResults && (
 				<section
