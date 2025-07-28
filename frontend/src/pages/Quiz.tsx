@@ -42,7 +42,6 @@ const Quiz = () => {
 		setIsLoading(true)
 		try {
 			const postResult: number = await sendAnswers(clickedAnswer)
-			console.log(`postResult dentro quiz: ${postResult}`)
 			const endModuleArgument = {
 				quizResult: postResult,
 				questionNumber: questionNumber,
