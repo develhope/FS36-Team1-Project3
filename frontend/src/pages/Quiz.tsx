@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { ChevronLeft } from "lucide-react"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useGetQuestion } from "../hooks/fetch/useGetQuestion"
 import { useSendAnswers } from "../hooks/fetch/useSendAnswers"
 
@@ -9,9 +9,10 @@ const Quiz = () => {
 	const { response } = useGetQuestion()
 	const [clickedAnswer, setClickedAnswer] = useState<string[]>([])
 	const { sendAnswers, isLoading, setIsLoading } = useSendAnswers()
-
+	const navigate = useNavigate()
 	const current = response?.[index]
 	const showEndQuizButton: boolean = clickedAnswer.length === response?.length
+	
 	const handlePrev = () => {
 		if (index > 0) {
 			setIndex(index - 1)
@@ -31,9 +32,13 @@ const Quiz = () => {
 		}
 		setIsLoading(true)
 		try {
-			const quizResult = await sendAnswers(clickedAnswer)
-			console.log(quizResult)
-			//è qui solo per non dare errore al compilatore
+			const postResult = await sendAnswers(clickedAnswer)
+			console.log(`postResult dentro quiz: ${postResult}`)
+			const endModuleArgument = {
+				quizResult: postResult,
+				questionNumber: response?.length,
+			}
+			navigate("/endmodule", { state: endModuleArgument })
 		} catch (error) {
 			console.error("Errore durante il caricamento delle risposte", error)
 		} finally {
@@ -68,7 +73,6 @@ const Quiz = () => {
 						))}
 					</ul>
 					{showEndQuizButton && (
-						<Link to="/endmodule" state={123} className={"p-[10px] block mt-[50px]"}>
 							<button
 								onClick={handleEndQuiz}
 								disabled={isLoading}
@@ -79,7 +83,6 @@ const Quiz = () => {
 								</span>
 								<span className="relative z-10">Vedi i risultati</span>
 							</button>
-						</Link>
 					)}
 				</div>
 			</div>
