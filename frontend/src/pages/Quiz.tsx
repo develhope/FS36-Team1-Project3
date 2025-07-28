@@ -1,18 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ChevronLeft } from "lucide-react"
 import { Link } from "react-router-dom"
 import { useGetQuestion } from "../hooks/fetch/useGetQuestion";
+import { useSendAnswers } from "../hooks/fetch/useSendAnswers";
 
 const Quiz = () => {
 const [index, setIndex] = useState(0);
 const {response} = useGetQuestion()
 const [clickedAnswer, setClickedAnswer] = useState<string[]>([])
+const { sendAnswers, isLoading, setIsLoading } = useSendAnswers()
 
 const current = response?.[index]
-
-useEffect(() => {
-	console.log("Array aggiornato:", clickedAnswer)
-}, [clickedAnswer])
+const showEndQuizButton:boolean = clickedAnswer.length === response?.length
 
 const handlePrev = () => {
 	if (index > 0) {
@@ -24,11 +23,24 @@ const handleNext = (answer: string) => {
 	if (index < (response?.length ?? 0) - 1) {
 		setIndex(index + 1)
 	}
-	setClickedAnswer((prev) => {
-		const newArray = [...prev, answer]
-		console.log("Nuovo array:", newArray)
-		return newArray
-	})
+	setClickedAnswer((prev) => [...prev, answer])
+}
+
+
+const handleEndQuiz = async () => {
+	if (!showEndQuizButton) {
+		return
+	}
+	setIsLoading(true)
+	try {
+		const quizResult = await sendAnswers(clickedAnswer)
+		console.log(quizResult)
+		//è qui solo per non dare errore al compilatore
+	} catch (error) {
+		console.error("Errore durante il caricamento delle risposte", error)
+	} finally {
+		setIsLoading(false)
+	}
 }
 
 return (
@@ -59,9 +71,12 @@ return (
  							</li>
  						))}
  					</ul>
- 					{index + 1 === response?.length && (
+ 					{showEndQuizButton && (
  						<Link to="/endmodule" className={"p-[10px] block mt-[50px]"}>
- 							<button className="bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-bold text-lg py-4 px-10 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl animate-button-appear relative overflow-hidden w-full">
+ 							<button 
+							onClick={handleEndQuiz}
+							disabled={isLoading}
+							className="bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white font-bold text-lg py-4 px-10 rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl animate-button-appear relative overflow-hidden w-full">
  								<span className="absolute inset-0 pointer-events-none">
  									<span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/50 to-transparent animate-[shimmer_2s_infinite]" />
  								</span>
