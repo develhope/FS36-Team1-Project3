@@ -14,6 +14,9 @@ const Quiz = () => {
 	const showEndQuizButton: boolean = clickedAnswer.length === response?.length
 	
 	const handlePrev = () => {
+		if (index === 0) {
+			navigate("/homepage")
+		}
 		if (index > 0) {
 			setIndex(index - 1)
 		}
