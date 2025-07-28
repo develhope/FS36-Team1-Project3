@@ -13,10 +13,7 @@ function App() {
 				<Route path="/homepage" element={<Homepage />} />
 				<Route path="/userpage" element={<UserPage />} />
 				<Route path="/quiz" element={<Quiz />} />
-				<Route
-					path="/endmodule"
-					element={<EndModule totalQuestions={16} correctAnswers={4} />}
-				/>
+				<Route path="/endmodule" element={<EndModule />} />
 			</Routes>
 		</>
 	)
