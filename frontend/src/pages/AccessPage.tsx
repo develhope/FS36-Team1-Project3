@@ -1,6 +1,7 @@
 import { useState } from "react"
 import login from "../../public/login.svg"
 import { Link } from "react-router-dom"
+import EndCourse from "../modals/end-course/EndCourse"
 
 interface AccessPageProps {
 	isNewUser: boolean
@@ -17,7 +18,7 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 	const [email, setEmail] = useState("")
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
-
+	const [isOpen, setIsOpen] = useState(false)	
 	const [errors, setErrors] = useState({
 		username: "",
 		email: "",
@@ -166,7 +167,14 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 			<a onClick={toggleState} className="mt-5 cursor-pointer">
 				{switchModeText}
 			</a>
+		
+		<div>
+			<button onClick={() => setIsOpen(true)}>prova</button>
+			<EndCourse isOpen={isOpen} onClose={() => setIsOpen(false)} />
 		</div>
+		
+		</div>
+		
 	)
 }
 
