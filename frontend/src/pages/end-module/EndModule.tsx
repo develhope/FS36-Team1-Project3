@@ -1,21 +1,11 @@
-import React, { useState } from "react"
+import { useState } from "react"
 import "./end-module.css"
 import { Link, useLocation } from "react-router-dom"
 import ProgressBar from "../../components/ProgressBar.tsx"
 
-interface TriviaResultsProps {
-	totalQuestions: number
-	correctAnswers: number
-	userName?: string
-	userRank?: number
-}
+	
 
-const TriviaResults: React.FC<TriviaResultsProps> = ({
-	totalQuestions = 10,
-	correctAnswers = 10,
-	userName = "Roxane",
-	userRank = 432,
-}) => {
+const EndModule = () => {
 	const [showResults, setShowResults] = useState(false)
 
 	const location = useLocation()
@@ -74,4 +64,4 @@ const TriviaResults: React.FC<TriviaResultsProps> = ({
 	)
 }
 
-export default TriviaResults
+export default EndModule
