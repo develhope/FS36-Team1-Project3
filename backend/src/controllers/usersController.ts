@@ -36,8 +36,8 @@ export const getAllUsers = async (req: Request, res: Response<User[] | ErrorResp
 export const createNewUserController = async (req: Request, res: Response<User | ErrorResponse>) => {
   try {
     const user = req.body;
-    const {id} = await createNewUser(user);
-    await createNewProgress(id);
+    const result = await createNewUser(user);
+    await createNewProgress(result.id);
     res.json(user);
   } catch (error) {
     handleControllerError(error, res, "Created user successfully");
