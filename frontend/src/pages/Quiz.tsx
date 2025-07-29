@@ -3,6 +3,7 @@ import { ChevronLeft } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { useGetQuestion } from "../hooks/fetch/useGetQuestion"
 import { useSendAnswers } from "../hooks/fetch/useSendAnswers"
+import QuizProgress from "../components/QuizProgress"
 
 const Quiz = () => {
 	const { response, setResponse } = useGetQuestion()
@@ -61,6 +62,7 @@ const Quiz = () => {
 	return (
 		<>
 			<div className="w-full h-screen bg-gradient-to-b from-purple-200 via-purple-400 to-purple-600">
+
 				{!showEndQuizButton && (
 					<>
 						<button
@@ -69,7 +71,9 @@ const Quiz = () => {
 						>
 							<ChevronLeft color="#BEA8FF" />
 						</button>
-						<div className="mb-[100px]">qui ci va la barra di scorrimento</div>
+              <div className="flex items-center justify-center p-6 ">
+                <QuizProgress questionIndex={index + 1} totalQuestions={response?.length}/>
+              </div>
 						<div className="p-6 mt-[200px]">
 							<p className="text-sm my-black mb-2">
 								Domanda {index + 1} di {questionNumber}
@@ -89,6 +93,7 @@ const Quiz = () => {
 						</div>
 					</>
 					)}
+
 					{showEndQuizButton && (
 						<div className="flex justify-center items-center h-screen gap-10 p-10">
 							<button
