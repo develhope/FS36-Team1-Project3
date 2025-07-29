@@ -24,9 +24,8 @@ export function Homepage() {
 					</div>
 				</div>
 				<div className="bg-white rounded-t-[25px] pt-1">
-					{moduli.map((modulo) => {
-						return (
-							<Link to="/quiz">
+					{moduli.map((modulo, index) => (
+							<Link to="/quiz" key={index}>
 								<LevelComponent
 									argomento={modulo.argomento}
 									img={modulo.img}
@@ -34,8 +33,7 @@ export function Homepage() {
 									value={modulo.value}
 								/>
 							</Link>
-						)
-					})}
+					))}
 				</div>
 			</div>
 			<footer className="fixed bottom-0 left-0 w-screen bg-my-light-purple-100 h-[70px] flex flex-row items-center justify-between p-[35px] accent-inherit">
