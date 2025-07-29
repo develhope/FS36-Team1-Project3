@@ -3,6 +3,7 @@ import { ChevronLeft } from "lucide-react"
 import { Link } from "react-router-dom"
 import { useGetQuestion } from "../hooks/fetch/useGetQuestion"
 import { useSendAnswers } from "../hooks/fetch/useSendAnswers"
+import QuizProgress from "../components/QuizProgress"
 
 const Quiz = () => {
 	const [index, setIndex] = useState(0)
@@ -50,8 +51,10 @@ const Quiz = () => {
 				>
 					<ChevronLeft color="#BEA8FF" />
 				</button>
-				<div className="mb-[100px]">qui ci va la barra di scorrimento</div>
-				<div className="p-6 mt-[200px]">
+				<div className="flex items-center justify-center p-6 ">
+					<QuizProgress questionIndex={index + 1}/>
+				</div>
+				<div className="p-6 ">
 					<p className="text-sm my-black mb-2">
 						Domanda {index + 1} di {response?.length}
 					</p>

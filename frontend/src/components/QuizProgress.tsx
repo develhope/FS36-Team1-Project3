@@ -1,7 +1,21 @@
+import type React from "react"
 import domande  from "../domande.json"
-export default function QuizProgress(){
+import { Circle } from "rc-progress"
+
+
+const QuizProgress: React.FC<any> = ({questionIndex})=>{
 return(
     <>
+    <div  className="relative w-40 h-40 flex items-center justify-center">
+        <Circle percent={20}
+          strokeWidth={8}
+          strokeColor="var(--stroke-color-progress-bar)"
+          trailWidth={8}
+          trailColor="var(--trail-color-progress-bar)"/>
+        <span className="absolute text-2xl font-bold text-my-light-purple-300">
+                {questionIndex}
+      </span>
+    </div>
 
     </>
 )
@@ -14,7 +28,7 @@ return(
         - cerchio diviso a spicchi 
         - colore più scuro ad indicare il progresso attuale
 - quando passiamo alla domanda successiva, la domanda cambia incrementando di 1
-- quando passiamo alla domamda successiva, cambia anche la linea di progresso
+- quando passiamo alla domanda successiva, cambia anche la linea di progresso
 - dev'essere posizionato in centro in alto */
 
 /* cosa serve:
@@ -32,3 +46,4 @@ return(
 //         <p>{current}</p>
 //     </div>
 // )
+export default QuizProgress
