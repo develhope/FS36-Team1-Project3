@@ -52,7 +52,7 @@ const Quiz = () => {
 					<ChevronLeft color="#BEA8FF" />
 				</button>
 				<div className="flex items-center justify-center p-6 ">
-					<QuizProgress questionIndex={index + 1}/>
+					<QuizProgress questionIndex={index + 1} totalQuestions={response?.length}/>
 				</div>
 				<div className="p-6 ">
 					<p className="text-sm my-black mb-2">
