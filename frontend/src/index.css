@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 :root {
+    --stroke-color-progress-bar: theme('colors.my-light.purple.300');
+    --trail-color-progress-bar: theme('colors.my-light.purple.100');
+
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
