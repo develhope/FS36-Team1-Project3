@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom"
-import { LevelComponent } from "../components/LevelComponent"
+import { LevelComponent } from "../../components/LevelComponent"
 import { User, House, LogOut } from "lucide-react"
-import avatar from "../../public/icone/avatar2.svg"
-import moduli from "../moduli.json"
+import avatar from "../../assets/icone/avatar2.svg"
+import { moduli } from "./moduli"
 
 export function Homepage() {
-
 	return (
 		<>
 			<div className="bg-my-light-purple-100 ">
