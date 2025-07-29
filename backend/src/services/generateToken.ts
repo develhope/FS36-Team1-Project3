@@ -7,7 +7,7 @@ const secret = process.env.SECRET || ""; //per essere uguale a passport.ts, qui 
 
 interface TokenPayload {
   id: number;
-  username: string; //si può anche togliere
+  email: string; //si può anche togliere
 }
 
 export const generateToken = (payload: TokenPayload): string => {

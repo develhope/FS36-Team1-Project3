@@ -39,14 +39,14 @@ export const deleteUser = async (id: number): Promise<void> => {
   await db.none("DELETE FROM users WHERE id = $1", [id]);
 }
 
-export const loginUser = async (username: string, password: string): Promise<{ id: number; username: string, token: string }> => {
-const user = await db.oneOrNone("SELECT * FROM users WHERE username = $1", [username]);
+export const loginUser = async (email: string, password: string): Promise<{ id: number; email: string, token: string }> => {
+const user = await db.oneOrNone("SELECT * FROM users WHERE username = $1", [email]);
   if (!user || user.password !== password) {
     throw new Error("Username or password not correct");
   }
 
-  const token = generateToken({ id: user.id, username: user.username });
-  return { id: user.id, username: user.username, token }; //id, username, token as in the Promise statement
+  const token = generateToken({ id: user.id, email: user.email });
+  return { id: user.id, email: user.email, token }; //id, username, token as in the Promise statement
 
   //il return è indispensabile altrimenti in Promise<{}> appare il seguente errore:
   //"A function whose declared type is neither 'undefined', 'void', nor 'any' must return a value"
