@@ -26,6 +26,7 @@ const userTableSetup = async () => {
     nickname TEXT,
     email TEXT,
     password TEXT,
+    token TEXT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP)`);
 }

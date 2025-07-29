@@ -6,8 +6,8 @@ dotenv.config();
 const secret = process.env.SECRET || ""; //per essere uguale a passport.ts, qui serve una stringa vuota perchè se manca secret il codice si rompe
 
 interface TokenPayload {
-  id: number;
-  username: string; //si può anche togliere
+  name: string;
+  email: string; //si può anche togliere
 }
 
 export const generateToken = (payload: TokenPayload): string => {

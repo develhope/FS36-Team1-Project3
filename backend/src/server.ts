@@ -30,7 +30,7 @@ app.use("/api", apiRouter);
 
 // Avvia il server solo dopo aver inizializzato il database
 const startServer = async () => {
-  //await initializeDatabase();
+  // await initializeDatabase();
   app.listen(port, () => {
     console.log(`Il server sta funzionando sul http://localhost:${port}/api`);
   });

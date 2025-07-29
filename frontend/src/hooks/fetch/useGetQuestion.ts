@@ -45,5 +45,5 @@ export function useGetQuestion() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [argument])
 
-    return { response, loading, error }
+    return { response, setResponse, loading, error }
 } 
