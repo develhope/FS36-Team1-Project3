@@ -13,10 +13,6 @@ export const createNewUser = async (user: User): Promise<{ name: string; email: 
   console.log(token)
   await db.none("UPDATE users SET token = $1 WHERE id = $2", [token, result.id]);
   return { name: result.name, email: result.email, id: result.id, token };
-
-  // const userId = await db.one("SELECT id FROM users WHERE email = $1", [user.email]);
-  // const { id } = userId;
-  // return id;
 }
 //example createNewUser({name: "John", nickname: "jonny", age: 30, email: "john.doe@example.com"})
 
