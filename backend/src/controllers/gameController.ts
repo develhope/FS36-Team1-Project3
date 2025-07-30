@@ -7,10 +7,12 @@ import {
   getScoreByUserId,
   getScoreByArgument,
 } from "../database/queries/progressQueries.js";
+import { fetchQuestionsByArgument } from "../database/queries/questionsQueries.js";
+import { fetchAnswersByQuestionId } from "../database/queries/answersQueries.js";
 
 export const getQuestionsAndAnswers = async (req: Request, res: Response) => {
   const { arg } = req.params;
-  const questionsAndAnswers = await questionsAnswersManager(arg);
+  const questionsAndAnswers = await questionsAnswersManager(arg, fetchQuestionsByArgument, fetchAnswersByQuestionId);
   res.json(questionsAndAnswers);
 };
 
