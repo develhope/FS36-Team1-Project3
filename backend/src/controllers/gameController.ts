@@ -4,8 +4,9 @@ import { countCorrectAnswers } from "../services/howManyCorrectAnswers.js";
 import { getUserIdByEmail } from "../database/queries/userQueries.js";
 import { scoreResult } from "../services/scoreResult.js";
 import {
-  getScoreByUserId,
+  getTotalScoreByUserId,
   getScoreByArgument,
+  getAllScoresByArgument,
 } from "../database/queries/progressQueries.js";
 
 export const getQuestionsAndAnswers = async (req: Request, res: Response) => {
@@ -23,13 +24,22 @@ export const incomingAnswersFrontend = async (req: Request, res: Response) => {
   res.json(result);
 };
 
+export const getHomepageScore = async (req: Request, res: Response) => {
+  const request = req.params;
+  const userId = await getUserIdByEmail(request.email);
+  const totalScore = await getTotalScoreByUserId(userId);
+  const argumentScore = await getAllScoresByArgument(userId)
+  res.json({ totalScore, argumentScore });
+};
+
+
 export const getScoreByEmail = async (
   req: Request,
   res: Response
 ) => {
   const request = req.params;
   const userId = await getUserIdByEmail(request.email);
-  const total = await getScoreByUserId(userId);
+  const total = await getTotalScoreByUserId(userId);
   res.json({total});
 };
 
