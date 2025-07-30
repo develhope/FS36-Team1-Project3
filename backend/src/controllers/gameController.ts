@@ -23,13 +23,14 @@ export const incomingAnswersFrontend = async (req: Request, res: Response) => {
   res.json(result);
 };
 
-export const getScoreByUserIdController = async (
+export const getScoreByEmail = async (
   req: Request,
   res: Response
 ) => {
-  const { userId } = req.params;
-  const total = await getScoreByUserId(Number(userId));
-  res.json({ userId, total });
+  const { email }:{email: string} = req.body;
+  const userId = await getUserIdByEmail(email);
+  const total = await getScoreByUserId(userId);
+  res.json({total});
 };
 
 export const getScoreByArgumentController = async (

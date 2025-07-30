@@ -18,7 +18,6 @@ const Quiz = () => {
 	const questionNumber = response?.length
 	const showEndQuizButton: boolean = clickedAnswer.length === questionNumber
 
-	
 	const handleBackToHomepage = () => {
 		navigate("/homepage")
 		setResponse([])
@@ -72,7 +71,7 @@ const Quiz = () => {
 							<ChevronLeft color="#BEA8FF" />
 						</button>
               <div className="flex items-center justify-center p-6 ">
-                <QuizProgress questionIndex={index + 1} totalQuestions={response?.length}/>
+                <QuizProgress questionIndex={index + 1} totalQuestions={questionNumber}/>
               </div>
 						<div className="p-6 mt-[70px]">
 							<p className="text-sm my-black mb-2">
