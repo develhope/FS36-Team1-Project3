@@ -63,6 +63,10 @@ const userProgressTableSetup = async () => {
     argument TEXT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
+
+    -- ci permette di validare i progressi di un utente per un argomento in modo univoco
+    UNIQUE (user_id, argument),
+    
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE)
     `);
 };

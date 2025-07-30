@@ -28,20 +28,8 @@ export const updateScore = async (
   argument: string,
   score: number
 ): Promise<void> => {
-  // Se esiste già, aggiorna, altrimenti inserisce
-  const existing = await db.oneOrNone(
-    "SELECT id FROM progress WHERE user_id = $1 AND argument = $2",
-    [user_id, argument]
+  await db.none(
+    "INSERT INTO progress (user_id, argument, score) VALUES ($1, $2, $3) ON CONFLICT (user_id, argument) DO UPDATE SET score = $3",
+    [user_id, argument, score]
   );
-  if (existing) {
-    await db.none(
-      "UPDATE progress SET score = $1, updated_at = NOW() WHERE user_id = $2 AND argument = $3",
-      [score, user_id, argument]
-    );
-  } else {
-    await db.none(
-      "INSERT INTO progress (user_id, argument, score, created_at, updated_at) VALUES ($1, $2, $3, NOW(), NOW())",
-      [user_id, argument, score]
-    );
-  }
 };
