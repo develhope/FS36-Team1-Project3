@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom"
 import AccessPage from "./pages/AccessPage.tsx"
-import { Homepage } from "./pages/Homepage.tsx"
-import UserPage from "./pages/UserPage.tsx"
+import { Homepage } from "./pages/homepage/Homepage.tsx"
+import UserPage from "./pages/user-page/UserPage.tsx"
 import Quiz from "./pages/Quiz.tsx"
 import EndModule from "./pages/end-module/EndModule.tsx"
 

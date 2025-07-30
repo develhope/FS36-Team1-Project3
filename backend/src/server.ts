@@ -26,7 +26,7 @@ export const app = express();
 app.use(cors());
 app.use(morgan("dev"));
 app.use(express.json());
-app.use("/api", apiRouter);
+app.use("/api", apiRouter); // DA SERVER > apiRouter
 
 // Avvia il server solo dopo aver inizializzato il database
 const startServer = async () => {

@@ -16,7 +16,9 @@ export const db = pgPromise({
   query: (e) => {
     console.log(e.query);
   },
-})(`postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`);
+})(
+  `postgres://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`
+);
 
 const userTableSetup = async () => {
   await db.none(`
@@ -29,7 +31,7 @@ const userTableSetup = async () => {
     token TEXT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP)`);
-}
+};
 const questionsTableSetup = async () => {
   await db.none(`
     CREATE TABLE IF NOT EXISTS questions
@@ -39,7 +41,7 @@ const questionsTableSetup = async () => {
     created_at TIMESTAMP,
     updated_at TIMESTAMP)`);
   await insertQuestionsIntoDb();
-}
+};
 const answersTableSetup = async () => {
   await db.none(`
     CREATE TABLE IF NOT EXISTS answers
@@ -51,18 +53,23 @@ const answersTableSetup = async () => {
     updated_at TIMESTAMP,
     FOREIGN KEY (questions_id) REFERENCES questions(id) ON DELETE CASCADE)`);
   await insertAnswersIntoDb();
-}
+};
 const userProgressTableSetup = async () => {
   await db.none(`
     CREATE TABLE IF NOT EXISTS progress
     (id SERIAL PRIMARY KEY,
     user_id INTEGER,
     score INTEGER,
+    argument TEXT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
+
+    -- ci permette di validare i progressi di un utente per un argomento in modo univoco
+    UNIQUE (user_id, argument),
+    
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE)
     `);
-}
+};
 
 export const initializeDatabase = async () => {
   try {
@@ -70,7 +77,6 @@ export const initializeDatabase = async () => {
     await questionsTableSetup();
     await answersTableSetup();
     await userProgressTableSetup();
-
   } catch (error) {
     console.error("Errore durante l'inizializzazione del database:", error);
     process.exit(1);

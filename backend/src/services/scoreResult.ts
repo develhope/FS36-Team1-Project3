@@ -1,8 +1,8 @@
-import { getScoreByUserId, updateScore } from "../database/queries/progressQueries.js";
+import { getScoreByArgument, updateScore } from "../database/queries/progressQueries.js";
 
-export const scoreResult = async (user_id: number, quizScore: number) => {  
-    const dbScore = await getScoreByUserId(user_id);
+export const scoreResult = async (user_id: number, quizScore: number, argument: string) => {  
+    const dbScore = await getScoreByArgument(user_id, argument);
     const result = dbScore + quizScore;
-    await updateScore(user_id, result);
+    await updateScore(user_id, argument, result);
     return result;
 }

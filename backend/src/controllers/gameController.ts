@@ -3,19 +3,40 @@ import { questionsAnswersManager } from "../services/questionsAnswersManager.js"
 import { countCorrectAnswers } from "../services/howManyCorrectAnswers.js";
 import { getUserIdByEmail } from "../database/queries/userQueries.js";
 import { scoreResult } from "../services/scoreResult.js";
+import {
+  getScoreByUserId,
+  getScoreByArgument,
+} from "../database/queries/progressQueries.js";
 
 export const getQuestionsAndAnswers = async (req: Request, res: Response) => {
-    const { arg } = req.params;
-    const questionsAndAnswers = await questionsAnswersManager(arg);
-    res.json(questionsAndAnswers);
-}
+  const { arg } = req.params;
+  const questionsAndAnswers = await questionsAnswersManager(arg);
+  res.json(questionsAndAnswers);
+};
 
 export const incomingAnswersFrontend = async (req: Request, res: Response) => {
-    const { arg } = req.params;
-    const { answers, email } = req.body;
-    const result = await countCorrectAnswers(answers, arg);
-    const userId = await getUserIdByEmail(email);
-    await scoreResult(userId, result);
-    // al momento non verifica se l'utente ha già giocato a quell'argomento
-    res.json(result);
-}
+  const { arg } = req.params;
+  const { answers, email } = req.body;
+  const result = await countCorrectAnswers(answers, arg);
+  const userId = await getUserIdByEmail(email);
+  await scoreResult(userId, result, arg);
+  res.json(result);
+};
+
+export const getScoreByUserIdController = async (
+  req: Request,
+  res: Response
+) => {
+  const { userId } = req.params;
+  const total = await getScoreByUserId(Number(userId));
+  res.json({ userId, total });
+};
+
+export const getScoreByArgumentController = async (
+  req: Request,
+  res: Response
+) => {
+  const { userId, argument } = req.params;
+  const score = await getScoreByArgument(Number(userId), argument);
+  res.json({ userId, argument, score });
+};

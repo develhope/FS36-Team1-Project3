@@ -1,5 +1,5 @@
 import { useState } from "react"
-import login from "../../public/login.svg"
+import login from "../assets/login.svg"
 import { Link } from "react-router-dom"
 
 interface AccessPageProps {
