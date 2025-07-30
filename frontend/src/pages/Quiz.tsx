@@ -74,7 +74,7 @@ const Quiz = () => {
               <div className="flex items-center justify-center p-6 ">
                 <QuizProgress questionIndex={index + 1} totalQuestions={response?.length}/>
               </div>
-						<div className="p-6 mt-[200px]">
+						<div className="p-6 mt-[70px]">
 							<p className="text-sm my-black mb-2">
 								Domanda {index + 1} di {questionNumber}
 							</p>

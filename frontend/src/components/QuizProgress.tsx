@@ -1,8 +1,12 @@
 import type React from "react"
 import { Circle } from "rc-progress"
 
+interface QuizProgressProps{
+        questionIndex: number,
+        totalQuestions?: number
+}
 
-const QuizProgress: React.FC<any> = ({questionIndex, totalQuestions})=>{
+const QuizProgress: React.FC<QuizProgressProps> = ({questionIndex, totalQuestions = 0})=>{
         const percent =  Math.round((questionIndex / totalQuestions) * 100)
         return(
         <>
