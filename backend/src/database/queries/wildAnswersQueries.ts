@@ -99,3 +99,8 @@ export const insertWildAnswersIntoDb = async () => {
 
   return wildAnswers;
 };
+
+export const fetchWildAnswersByQuestionId = async (questionId: number) => {
+    const answers = await db.many("SELECT answers FROM wildAnswers WHERE questions_id = $1", [questionId]);
+    return answers;
+}

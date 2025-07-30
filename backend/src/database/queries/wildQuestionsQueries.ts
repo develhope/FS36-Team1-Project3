@@ -58,3 +58,9 @@ export const insertWildQuestionsIntoDB = async () => {
 
   return wildQuestions;
 };
+
+export const fetchWildQuestionsByArgument = async (arg: string) => {
+    const questions = await db.many("SELECT * FROM wildQuestions WHERE arguments = $1", [arg]);
+    return questions;
+}
+
