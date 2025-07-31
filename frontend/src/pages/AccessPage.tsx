@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import login from "../assets/login.svg"
-import { Link } from "react-router-dom"
 import axios from "axios"
 import useToast from "../hooks/toast/useToast"
-
+import { useLoginUser } from "../hooks/fetch/useLoginUser"
+import { useUserContext } from "../context/user/useUserContext"
+import { useNavigate } from "react-router-dom"
 
 interface AccessPageProps {
 	isNewUser: boolean
@@ -20,10 +21,13 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 	const [email, setEmail] = useState("")
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
-	const [logged, setLogged] = useState(false)
+	// const [logged, setLogged] = useState(false)
 
 	const {showToast} = useToast();
 
+	const {userLogin} = useLoginUser();
+
+	const navigate = useNavigate()
 
 
 	const [errors, setErrors] = useState({
@@ -31,6 +35,12 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 		email: "",
 		password: "",
 	})
+
+	const {user} = useUserContext();
+
+	useEffect(() => {
+		if(user.name) navigate("/homepage")
+	}, [user])
 
 	function toggleState() {
 		!isNew ? setIsNew(true) : setIsNew(false)
@@ -52,14 +62,6 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 			setErrors((prev) => ({ ...prev, username: "" }))
 		}
 	}
-
-	useEffect(() => {
-		console.log(`Questa è la password ${password}`);
-		console.log(`Questa è la mail ${email}`);
-		console.log(`Questo è l'username ${username}`)
-
-	}, [email, password, username])
-
 
 	const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value
@@ -103,21 +105,6 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 		}
 
 		userRegistration(requestBody)
-	}
-
-	const userLogin = async (requestBody: {email:string, password: string}) => {
-		try {
-			const { data } = await axios.post("http://localhost:3000/api/users/login", requestBody);
-			if(data.token){
-				setLogged(true)
-				showToast("Login avvenuto", "success")
-
-			}
-		} catch (err:any) {
-			console.log(err)
-			showToast("Login non avvenuto", "danger")
-
-		}
 	}
 
 	const handleLoginClick = () => {
