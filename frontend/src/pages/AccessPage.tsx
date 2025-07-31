@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import login from "../assets/login.svg"
-import axios from "axios"
-import useToast from "../hooks/toast/useToast"
 import { useLoginUser } from "../hooks/fetch/useLoginUser"
+import { useRegistration } from "../hooks/fetch/useRegistration"
 import { useUserContext } from "../context/user/useUserContext"
 import { useNavigate } from "react-router-dom"
 
@@ -23,9 +22,8 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 	const [password, setPassword] = useState("")
 	// const [logged, setLogged] = useState(false)
 
-	const {showToast} = useToast();
-
 	const {userLogin} = useLoginUser();
+	const {userRegistration} = useRegistration();
 
 	const navigate = useNavigate()
 
@@ -87,15 +85,6 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 		}
 	}
 
-	const userRegistration = async (requestBody: {name: string, nickname:string, email:string, password: string}) => {
-		try {
-			await axios.post("http://localhost:3000/api/users/create-user", requestBody);
-		} catch (err:any) {
-			console.log(err)
-			showToast("Login non avvenuto", "danger")
-
-		}
-	}
 	const handleRegisterClick = () => {
 		const requestBody = {
 			name: username,
