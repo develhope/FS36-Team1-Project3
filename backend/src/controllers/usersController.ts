@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { User } from "../models";
 import { fetchAllUsers, createNewUser, loginUser, logoutUser } from "../database/queries/userQueries.js";
-import { createNewProgress } from "../database/queries/progressQueries.js";
 
 export const getAllUsers = async (req: Request, res: Response) => {
   const users = await fetchAllUsers();
@@ -10,8 +9,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 export const createNewUserController = async (req: Request, res: Response) => {
   const user = req.body;
-  const result = await createNewUser(user);
-  await createNewProgress(result.id);
+  await createNewUser(user);
   res.json(user);
 };
 
