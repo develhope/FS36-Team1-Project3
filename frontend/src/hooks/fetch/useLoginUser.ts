@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import useToast from "../toast/useToast";
 
 interface LoginResponse {
   name: string;
@@ -7,25 +8,29 @@ interface LoginResponse {
   token: string;
 };
 
-export function useLoginUser(){
+export function useLoginUser(requestBody: {email: string, password: string}){
 
   const [user, setUser] = useState<LoginResponse | null>(null); //viene updato quando avviene il login e le info vengono inserite
   const [error, setError] = useState<string | null>(null); //se l'user non esiste o se il server non funziona
   const [loading, setLoading] = useState<boolean>(false); //quando la richiesta è in corso
 
-  const login = async (email: string, password: string) => {
+  const {showToast} = useToast();
+
+  const login = async () => {
 
     setLoading(true); //sta caricando, per non far iniziare un altro login mentre il primo non è ancora stato risolto
     setError(null); //cancella previous errori per non avere errori con il nuovo login
 
 
     try {
-        const { data } = await axios.post("http://localhost:3000/api/login", {email, password});
+        const { data } = await axios.post("http://localhost:3000/api/users/login", requestBody);
         //axios invia una richiesta di tipo POST per inviare dati al server, cioè i dati del login
         //URL dell'endpoint nel backend + i dati che sta inviando
         setUser(data)
+        showToast("Login avvenuto", "success")
     } catch (err:any) {
         setError(err)
+        showToast("Login non avvenuto", "danger")
     } finally{
         setLoading(false) //ended
     }

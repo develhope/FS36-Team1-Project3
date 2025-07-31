@@ -16,8 +16,8 @@ export const createNewUserController = async (req: Request, res: Response) => {
 };
 
 export const loginUserController = async (req: Request, res: Response) => {
-  const {username, password} = req.body;
-  const user = await loginUser(username, password);
+  const {email, password} = req.body;
+  const user = await loginUser(email, password);
   res.json(user);
 };
 

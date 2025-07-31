@@ -1,6 +1,9 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import login from "../assets/login.svg"
 import { Link } from "react-router-dom"
+import axios from "axios"
+import useToast from "../hooks/toast/useToast"
+
 
 interface AccessPageProps {
 	isNewUser: boolean
@@ -17,6 +20,11 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 	const [email, setEmail] = useState("")
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
+	const [logged, setLogged] = useState(false)
+
+	const {showToast} = useToast();
+
+
 
 	const [errors, setErrors] = useState({
 		username: "",
@@ -45,6 +53,14 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 		}
 	}
 
+	useEffect(() => {
+		console.log(`Questa è la password ${password}`);
+		console.log(`Questa è la mail ${email}`);
+		console.log(`Questo è l'username ${username}`)
+
+	}, [email, password, username])
+
+
 	const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value
 		setEmail(value)
@@ -69,10 +85,55 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 		}
 	}
 
+	const userRegistration = async (requestBody: {name: string, nickname:string, email:string, password: string}) => {
+		try {
+			await axios.post("http://localhost:3000/api/users/create-user", requestBody);
+		} catch (err:any) {
+			console.log(err)
+			showToast("Login non avvenuto", "danger")
+
+		}
+	}
+	const handleRegisterClick = () => {
+		const requestBody = {
+			name: username,
+			nickname: "ciao",
+			email,
+			password,
+		}
+
+		userRegistration(requestBody)
+	}
+
+	const userLogin = async (requestBody: {email:string, password: string}) => {
+		try {
+			const { data } = await axios.post("http://localhost:3000/api/users/login", requestBody);
+			if(data.token){
+				setLogged(true)
+				showToast("Login avvenuto", "success")
+
+			}
+		} catch (err:any) {
+			console.log(err)
+			showToast("Login non avvenuto", "danger")
+
+		}
+	}
+
+	const handleLoginClick = () => {
+		const requestBody = {
+			email: email,
+			password: password
+		}
+
+		userLogin(requestBody)
+
+	}
+
 	const submitValue: string = isNew ? "Registrati" : "Accedi"
 	const switchModeText: string = !isNew
-		? " Sei un nuovo utente? Registrati"
-		: "Sei già utente? accedi"
+	? " Sei un nuovo utente? Registrati"
+	: "Sei già utente? accedi"
 
 	return (
 		<div className="flex flex-col items-center justify-center min-h-screen p-4 bg-[radial-gradient(circle,_#A283FF,_#BEA8FF,_#DED2FF)]">
@@ -152,15 +213,24 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 						<p className="mt-1 text-sm text-red-500">{errors.password}</p>
 					)}
 				</div>
-
-				<Link to="/homepage">
+					{submitValue == "Accedi" ?
 					<button
 						className="w-full mt-5 rounded-2xl h-12 text-my-white bg-my-light-purple-300 font-bold"
 						type="button"
+						onClick={handleLoginClick}
 					>
 						{submitValue}
 					</button>
-				</Link>
+					:
+					<button
+						className="w-full mt-5 rounded-2xl h-12 text-my-white bg-my-light-purple-300 font-bold"
+						type="button"
+						onClick={handleRegisterClick}
+					>
+						{submitValue}
+					</button>
+				}
+
 			</form>
 
 			<a onClick={toggleState} className="mt-5 cursor-pointer">
