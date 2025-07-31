@@ -101,6 +101,23 @@ export const insertWildAnswersIntoDb = async () => {
 };
 
 export const fetchWildAnswersByQuestionId = async (questionId: number) => {
-    const answers = await db.many("SELECT answers FROM wildAnswers WHERE questions_id = $1", [questionId]);
-    return answers;
+  const answers = await db.many(
+    "SELECT answers FROM wildAnswers WHERE questions_id = $1",
+    [questionId]
+  );
+  return answers;
+};
+
+interface CorrectAnswer {
+  answers: string;
 }
+
+export const fetchCorrectWildAnswerByQuestionId = async (
+  questionId: number
+): Promise<CorrectAnswer[]> => {
+  const correctAnswer = await db.many(
+    "SELECT answers FROM wildAnswers WHERE questions_id = $1 AND isCorrect = true",
+    [questionId]
+  );
+  return correctAnswer;
+};

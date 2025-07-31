@@ -1,7 +1,16 @@
 import { Request, Response } from "express";
 import { questionsAnswersManager } from "../services/questionsAnswersManager.js";
-import { fetchWildQuestionsByArgument } from "../database/queries/wildQuestionsQueries.js";
-import { fetchWildAnswersByQuestionId } from "../database/queries/wildAnswersQueries.js";
+import {
+  fetchWildQuestionIdbyArgument,
+  fetchWildQuestionsByArgument,
+} from "../database/queries/wildQuestionsQueries.js";
+import {
+  fetchCorrectWildAnswerByQuestionId,
+  fetchWildAnswersByQuestionId,
+} from "../database/queries/wildAnswersQueries.js";
+import { countCorrectAnswers } from "../services/howManyCorrectAnswers.js";
+import { getUserIdByEmail } from "../database/queries/userQueries.js";
+import { scoreResult } from "../services/scoreResult.js";
 
 export const getWildQuestionsAndAnswers = async (
   req: Request,
@@ -23,4 +32,14 @@ export const incomingWildAnswersFrontend = async (
 ) => {
   const { arg } = req.params;
   const { answers, email } = req.body;
+  const result = await countCorrectAnswers(
+    answers,
+    arg,
+    fetchWildQuestionIdbyArgument,
+    fetchCorrectWildAnswerByQuestionId
+  );
+  const userId = await getUserIdByEmail(email);
+  await scoreResult(userId, result, arg);
+
+  res.json(result)
 };

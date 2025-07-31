@@ -60,7 +60,19 @@ export const insertWildQuestionsIntoDB = async () => {
 };
 
 export const fetchWildQuestionsByArgument = async (arg: string) => {
-    const questions = await db.many("SELECT * FROM wildQuestions WHERE arguments = $1", [arg]);
-    return questions;
-}
+  const questions = await db.many(
+    "SELECT * FROM wildQuestions WHERE arguments = $1",
+    [arg]
+  );
+  return questions;
+};
 
+export const fetchWildQuestionIdbyArgument = async (
+  arg: string
+): Promise<{ id: number }[]> => {
+  const questionId = await db.many(
+    "SELECT id FROM wildQuestions WHERE arguments = $1",
+    [arg]
+  );
+  return questionId;
+};
