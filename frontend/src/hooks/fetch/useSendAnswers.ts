@@ -31,11 +31,10 @@ export function useSendAnswers() {
 
 		try {
 			//ottimizzazione per non fargli leggere l'intera funzione
-			const endpoint = !isWild ? "send-answers" : "send-wild-answers"
-			const response = await axios.post(
-				`http://localhost:3000/api/game/${argument}/${endpoint}`,
-				request
-			)
+			const endpoint = !isWild
+				? `game/${argument}/send-answers`
+				: `wild/${argument}/send-wild-answers`
+			const response = await axios.post(`http://localhost:3000/api/${endpoint}`, request)
 			showToast("Risposte inviate con successo!", "success")
 			return response.data
 		} catch (error) {
