@@ -1,0 +1,33 @@
+/* Modal Animation - Bottom to Top */
+.modal-enter {
+  @apply transform translate-y-full opacity-0;
+}
+
+.modal-enter-active {
+  @apply transform translate-y-0 opacity-100 transition-all duration-300 ease-out;
+}
+
+.modal-exit {
+  @apply transform translate-y-0 opacity-100;
+}
+
+.modal-exit-active {
+  @apply transform translate-y-full opacity-0 transition-all duration-300 ease-in;
+}
+
+/* Modal backdrop animation */
+.modal-backdrop-enter {
+  @apply opacity-0;
+}
+
+.modal-backdrop-enter-active {
+  @apply opacity-100 transition-opacity duration-300 ease-out;
+}
+
+.modal-backdrop-exit {
+  @apply opacity-100;
+}
+
+.modal-backdrop-exit-active {
+  @apply opacity-0 transition-opacity duration-300 ease-in;
+}
