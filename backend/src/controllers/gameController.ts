@@ -37,9 +37,11 @@ export const getScoreByEmail = async (
   req: Request,
   res: Response
 ) => {
-  const request = req.params;
-  const userId = await getUserIdByEmail(request.email);
-  const total = await getTotalScoreByUserId(userId);
+
+  const { email }:{email: string} = req.body;
+  console.log(email)
+  const userId = await getUserIdByEmail(email);
+  const total = await getScoreByUserId(userId);
   res.json({total});
 };
 
