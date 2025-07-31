@@ -8,8 +8,8 @@ import {
   getScoreByArgument,
   getAllScoresByArgument,
 } from "../database/queries/progressQueries.js";
-import { fetchQuestionsByArgument } from "../database/queries/questionsQueries.js";
-import { fetchAnswersByQuestionId } from "../database/queries/answersQueries.js";
+import { fetchQuestionIdbyArgument, fetchQuestionsByArgument } from "../database/queries/questionsQueries.js";
+import { fetchAnswersByQuestionId, fetchCorrectAnswerByQuestionId } from "../database/queries/answersQueries.js";
 
 export const getQuestionsAndAnswers = async (req: Request, res: Response) => {
   const { arg } = req.params;
@@ -20,7 +20,7 @@ export const getQuestionsAndAnswers = async (req: Request, res: Response) => {
 export const incomingAnswersFrontend = async (req: Request, res: Response) => {
   const { arg } = req.params;
   const { answers, email } = req.body;
-  const result = await countCorrectAnswers(answers, arg);
+  const result = await countCorrectAnswers(answers, arg, fetchQuestionIdbyArgument, fetchCorrectAnswerByQuestionId);
   const userId = await getUserIdByEmail(email);
   await scoreResult(userId, result, arg);
   res.json(result);
@@ -43,7 +43,7 @@ export const getScoreByEmail = async (
   const { email }:{email: string} = req.body;
   console.log(email)
   const userId = await getUserIdByEmail(email);
-  const total = await getScoreByUserId(userId);
+  const total = await getTotalScoreByUserId(userId);
   res.json({total});
 };
 

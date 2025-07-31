@@ -8,11 +8,19 @@ export const getWildQuestionsAndAnswers = async (
   res: Response
 ) => {
   const { arg } = req.params;
-  console.log(arg)
+  console.log(arg);
   const wildQuiz = await questionsAnswersManager(
     arg,
     fetchWildQuestionsByArgument,
     fetchWildAnswersByQuestionId
   );
   res.json(wildQuiz);
+};
+
+export const incomingWildAnswersFrontend = async (
+  req: Request,
+  res: Response
+) => {
+  const { arg } = req.params;
+  const { answers, email } = req.body;
 };
