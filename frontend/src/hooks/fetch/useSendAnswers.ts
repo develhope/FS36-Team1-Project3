@@ -16,7 +16,9 @@ export function useSendAnswers() {
 	const { argument } = useArgumentContext()
 	//const { user } = useUserContext()
 
-	const sendAnswers = async (payload: string[], isWild = false) => {
+	type sendAnswersType = (payload: string[], isWild?: boolean) => Promise<number>
+
+	const sendAnswers: sendAnswersType = async (payload: string[], isWild = false) => {
 		setIsLoading(true)
 		setError(null)
 
