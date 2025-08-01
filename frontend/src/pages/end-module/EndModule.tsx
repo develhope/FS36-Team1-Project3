@@ -10,8 +10,8 @@ const EndModule = () => {
 	const { quizResult, questionNumber } = useLocation().state
 	const { user } = useUserContext()
 	const { progress } = useGameProgressContext()
-	const { overall, ...restOfProgress } = progress
-	const result = Number(overall) + quizResult
+	const { overall } = progress
+	const result = overall + quizResult
 
 	const handleShowResult = () => {
 		setShowResults(true)

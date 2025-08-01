@@ -9,7 +9,7 @@ export const getTotalScoreByUserId = async (user_id: number): Promise<number> =>
     "SELECT SUM(score) as total FROM progress WHERE user_id = $1",
     [user_id]
   );
-  return result?.total || 0;
+  return Number(result?.total || 0);
 };
 
 export const getAllScoresByArgument = async (user_id: number) => {

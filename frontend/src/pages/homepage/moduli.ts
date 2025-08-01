@@ -16,48 +16,47 @@ export const moduli = [
 		argomento: "html",
 		img: htmlImg,
 		check: checkImg,
-		value: 100
+
 	},
 	{
 		argomento: "css",
 		img: cssImg,
-		check: openLockImg,
-		value: 70
+		check: openLockImg
 	},
 	{
 		argomento: "javascript",
 		img: jsImg,
 		check: closedLockImg,
-		value: 100
+
 	},
 	{
 		argomento: "typescript",
 		img: tsImg,
 		check: closedLockImg,
-		value: 100
+
 	},
 	{
 		argomento: "react",
 		img: reactImg,
 		check: closedLockImg,
-		value: 100
+
 	},
 	{
 		argomento: "sql",
 		img: sqlImg,
 		check: closedLockImg,
-		value: 100
+
 	},
 	{
 		argomento: "git",
 		img: gitImg,
 		check: closedLockImg,
-		value: 100
+
 	},
 	{
 		argomento: "node",
 		img: nodeImg,
 		check: closedLockImg,
-		value: 100
+
 	}
-] 
+]

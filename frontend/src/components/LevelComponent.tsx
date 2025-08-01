@@ -1,14 +1,18 @@
 import { useArgumentContext } from "../context/argument/useArgumentContext"
+import { Lock, LockOpen, Check } from "lucide-react"
+
 
 interface LevelComponentProps {
   argomento: string;
   img: string;
-  check: string;
   value: () => number;
 }
 
-export function LevelComponent({argomento, img, check, value}: LevelComponentProps){
+export function LevelComponent({argomento, img, value}: LevelComponentProps){
     const { setArgument } = useArgumentContext()
+
+    const icon = value() === 100 ? <Check/> : value() === 50 ? <LockOpen /> : <Lock/>
+
     return(
         <>
             <div
@@ -25,7 +29,8 @@ export function LevelComponent({argomento, img, check, value}: LevelComponentPro
                                 <b> {argomento}</b>
                             </div>
                             <div className="bg-my-dark-purple-100 ml-20 w-[30px] h-[30px] rounded-[50px]">
-                                <img className="p-1 w-[29px] h-[29px]" src={check} />
+                                {/* <img className="p-1 w-[29px] h-[29px]" src={check} /> */}
+                                {icon}
                             </div>
                         </div>
                         <div className="flex flex-col justify-between p-1 mt-5">

@@ -56,7 +56,6 @@ export function Homepage() {
 							<LevelComponent
 								argomento={modulo.argomento}
 								img={modulo.img}
-								check={modulo.check}
 								value={() =>
 									formattedValue(
 										progress[modulo.argomento as keyof typeof progress] || 0
