@@ -1,8 +1,12 @@
 import { ChevronLeft, Settings, Star, Flame, Sprout, Gem } from "lucide-react"
 import { moduli } from "./moduli"
 import { Link } from "react-router-dom"
+import { useUserContext } from "../../context/user/useUserContext"
+import { useGameProgressContext } from "../../context/game-progress/useGameProgressContext"
 
 function UserPage() {
+	const {user} = useUserContext()
+	const {progress} = useGameProgressContext()
 	return (
 		<div className="bg-my-light-purple-100">
 			{/* HEADER PULSANTI */}
@@ -24,9 +28,9 @@ function UserPage() {
 						<img src={moduli.avatar} alt="user_avatar" />
 					</div>
 				</div>
-				<h1 className="text-3xl font-bold text-gray-900 mb-2">Silvia</h1>
-				<div className="w-20 h-7 rounded-full bg-white/50 mt-2">
-					<p className="text-lg text-black-700">@silvia</p>
+				<h1 className="text-3xl font-bold text-gray-900 mb-2">{user.name}</h1>
+				<div className="px-4 py-1 rounded-full bg-white/50 mt-2 max-w-[80%] overflow-hidden">
+					<p className="text-lg text-black-700 truncate">@{user.name}</p>
 				</div>
 			</div>
 
@@ -37,7 +41,7 @@ function UserPage() {
 						<div className="w-8 h-8 flex items-center justify-center mx-auto mb-2">
 							<Star className="w-10 h-10 text-yellow-200" fill="currentColor" />
 						</div>
-						<div className="text-xl font-bold text-gray-900">236 XP</div>
+						<div className="text-xl font-bold text-gray-900">{progress.overall} XP</div>
 						<div className="text-sm text-gray-600">Punti</div>
 					</div>
 					<div className="bg-my-light-purple-100 rounded-2xl p-4 text-center shadow-md">
