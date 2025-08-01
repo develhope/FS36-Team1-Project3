@@ -3,8 +3,16 @@ import { LevelComponent } from "../../components/LevelComponent"
 import { User, House, LogOut } from "lucide-react"
 import avatar from "../../assets/icone/avatar2.svg"
 import { moduli } from "./moduli"
+import { useUserContext } from "../../context/user/useUserContext"
+import { useEffect } from "react"
 
 export function Homepage() {
+
+	const {user} = useUserContext();
+
+	useEffect(()=> {
+		console.log(user)
+	}, [])
 	return (
 		<>
 			<div className="bg-my-light-purple-100">

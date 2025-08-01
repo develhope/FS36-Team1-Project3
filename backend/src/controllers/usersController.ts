@@ -9,13 +9,14 @@ export const getAllUsers = async (req: Request, res: Response) => {
 
 export const createNewUserController = async (req: Request, res: Response) => {
   const user = req.body;
-  await createNewUser(user);
-  res.json(user);
+  const result = await createNewUser(user);
+  res.json(result);
+
 };
 
 export const loginUserController = async (req: Request, res: Response) => {
-  const {username, password} = req.body;
-  const user = await loginUser(username, password);
+  const {email, password} = req.body;
+  const user = await loginUser(email, password);
   res.json(user);
 };
 

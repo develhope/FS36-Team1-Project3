@@ -1,6 +1,9 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import login from "../assets/login.svg"
-import { Link } from "react-router-dom"
+import { useLoginUser } from "../hooks/fetch/useLoginUser"
+import { useRegistration } from "../hooks/fetch/useRegistration"
+import { useUserContext } from "../context/user/useUserContext"
+import { useNavigate } from "react-router-dom"
 
 interface AccessPageProps {
 	isNewUser: boolean
@@ -18,11 +21,23 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
 
+	const {userLogin} = useLoginUser();
+	const {userRegistration, data} = useRegistration();
+
+	const navigate = useNavigate()
+
+
 	const [errors, setErrors] = useState({
 		username: "",
 		email: "",
 		password: "",
 	})
+
+	const {user} = useUserContext();
+
+	useEffect(() => {
+		if(user.name) navigate("/homepage")
+	}, [user])
 
 	function toggleState() {
 		!isNew ? setIsNew(true) : setIsNew(false)
@@ -69,10 +84,31 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 		}
 	}
 
+	const handleRegisterClick = () => {
+		const requestBody = {
+			name: username,
+			nickname: "ciao",
+			email,
+			password,
+		}
+
+		userRegistration(requestBody)
+	}
+
+	const handleLoginClick = () => {
+		const requestBody = {
+			email: email,
+			password: password
+		}
+
+		userLogin(requestBody)
+
+	}
+
 	const submitValue: string = isNew ? "Registrati" : "Accedi"
 	const switchModeText: string = !isNew
-		? " Sei un nuovo utente? Registrati"
-		: "Sei già utente? accedi"
+	? " Sei un nuovo utente? Registrati"
+	: "Sei già utente? accedi"
 
 	return (
 		<div className="flex flex-col items-center justify-center min-h-screen p-4 bg-[radial-gradient(circle,_#A283FF,_#BEA8FF,_#DED2FF)]">
@@ -81,7 +117,7 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 			</div>
 
 			<form className="w-full max-w-sm mt-5 text-my-black">
-				{isNew && (
+				{isNew && !data && (
 					<div className="flex flex-col mb-5">
 						<label htmlFor="name" className="mb-1">
 							Nome
@@ -152,15 +188,24 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 						<p className="mt-1 text-sm text-red-500">{errors.password}</p>
 					)}
 				</div>
-
-				<Link to="/homepage">
+					{submitValue == "Accedi" ?
 					<button
 						className="w-full mt-5 rounded-2xl h-12 text-my-white bg-my-light-purple-300 font-bold"
 						type="button"
+						onClick={handleLoginClick}
 					>
 						{submitValue}
 					</button>
-				</Link>
+					:
+					<button
+						className="w-full mt-5 rounded-2xl h-12 text-my-white bg-my-light-purple-300 font-bold"
+						type="button"
+						onClick={handleRegisterClick}
+					>
+						{submitValue}
+					</button>
+				}
+
 			</form>
 
 			<a onClick={toggleState} className="mt-5 cursor-pointer">

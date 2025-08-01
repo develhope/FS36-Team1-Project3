@@ -4,20 +4,20 @@ import { UserContext } from "./UserContext";
 
 export const UserProvider = ({ children }: { children: ReactNode }) => {
 
-/* 
-per aggiornare state di oggetti devi rendere react noto che le chiavi precedenti, 
+/*
+per aggiornare state di oggetti devi rendere react noto che le chiavi precedenti,
 non sono cambiate, quindi devi usare lo spread
 setState (prev => ({...prev, chiave: valore}))
 potrebbe non essere la soluzione migliore, vedi se trovi di meglio
 */
     const [userState, setUserState] = useState({
     name: "",
-    nickname: "",
     email: "",
+    token: ""
   });
 
   const userMemo = useMemo(() => userState, [userState]);
-  
+
   const contextReturn = {
     user: userMemo,
     setUser: setUserState,
