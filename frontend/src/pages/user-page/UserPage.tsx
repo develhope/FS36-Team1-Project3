@@ -3,10 +3,28 @@ import { moduli } from "./moduli"
 import { Link } from "react-router-dom"
 import { useUserContext } from "../../context/user/useUserContext"
 import { useGameProgressContext } from "../../context/game-progress/useGameProgressContext"
+import { useEffect, useState } from "react"
 
 function UserPage() {
 	const {user} = useUserContext()
 	const {progress} = useGameProgressContext()
+	const [completedModules, setCompletedModules] = useState(0)
+	
+useEffect(() => {
+    
+	//eslint si lamenta che overall non viene usato, ma è il nostro obbiettivo
+	//eslint-disable-next-line
+    const { overall, ...restOfProgress } = progress;
+
+	//dobbiamo ritornare quanti quiz sono stati superati con successo
+	//il due rappresenta la quantità di domande che per ora è hardcodata
+    const modulesCount = Object.values(restOfProgress)
+                                .filter(value => value >= 2)
+                                .length;
+    
+    setCompletedModules(modulesCount);
+}, [progress]);
+
 	return (
 		<div className="bg-my-light-purple-100">
 			{/* HEADER PULSANTI */}
@@ -48,7 +66,7 @@ function UserPage() {
 						<div className="w-8 h-8 flex items-center justify-center mx-auto mb-2">
 							<Flame className="w-10 h-10 text-orange-400" fill="currentColor" />
 						</div>
-						<div className="text-xl font-bold text-gray-900">7 Quiz</div>
+						<div className="text-xl font-bold text-gray-900">{completedModules} Quiz</div>
 						<div className="text-sm text-gray-600">Completati</div>
 					</div>
 					<div className="bg-my-light-purple-100 rounded-2xl p-4 text-center shadow-md">
