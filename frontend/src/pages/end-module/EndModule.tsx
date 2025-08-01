@@ -2,15 +2,16 @@ import { useState } from "react"
 import "./end-module.css"
 import { Link, useLocation } from "react-router-dom"
 import ProgressBar from "../../components/ProgressBar.tsx"
-
-	
+import { useUserContext } from "../../context/user/useUserContext.ts"
+import { useGameProgressContext } from "../../context/game-progress/useGameProgressContext.ts"
 
 const EndModule = () => {
 	const [showResults, setShowResults] = useState(false)
-	const {quizResult, questionNumber} = useLocation().state
-
-	const userName = "User Name"
-	const userRank = "User Rank"
+	const { quizResult, questionNumber } = useLocation().state
+	const { user } = useUserContext()
+	const { progress } = useGameProgressContext()
+	const { overall, ...restOfProgress } = progress
+	const result = Number(overall) + quizResult
 
 	const handleShowResult = () => {
 		setShowResults(true)
@@ -34,9 +35,9 @@ const EndModule = () => {
 							</div>
 
 							<div className="text-center pt-10">
-								<h2 className="text-white font-bold text-2xl mb-2">{userName}</h2>
+								<h2 className="text-white font-bold text-2xl mb-2">{user.name}</h2>
 								<p className="text-purple-200 text-lg mb-2">Rank</p>
-								<p className="text-white font-bold text-3xl">{userRank}</p>
+								<p className="text-white font-bold text-3xl">{result}</p>
 							</div>
 						</div>
 

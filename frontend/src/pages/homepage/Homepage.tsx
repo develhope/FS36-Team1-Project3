@@ -5,10 +5,13 @@ import avatar from "../../assets/icone/avatar2.svg"
 import { moduli } from "./moduli"
 import { useGameProgressContext } from "../../context/game-progress/useGameProgressContext"
 import { useUserContext } from "../../context/user/useUserContext"
+import EndCourse from "../../modals/end-course/EndCourse"
+import { useState } from "react"
 
 export function Homepage() {
 	const { progress } = useGameProgressContext()
 	const { user, setUser } = useUserContext()
+	const [isModalOpen, setIsModalOpen] = useState(false)
 
 	const navigate = useNavigate()
 
@@ -31,7 +34,12 @@ export function Homepage() {
 				<header className="flex justify-start items-center ml-6 pt-16 pb-6">
 					<div className="w-20 h-20 rounded-full bg-white/40 flex items-center justify-center">
 						<div className="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center">
-							<img src={avatar} alt="user_avatar" />
+							<img
+								src={avatar}
+								alt="user_avatar"
+								onClick={() => setIsModalOpen((prev) => !prev)}
+							/>
+							<EndCourse isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 						</div>
 					</div>
 					<div className="pl-4">
