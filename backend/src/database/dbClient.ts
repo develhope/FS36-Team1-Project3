@@ -2,6 +2,8 @@ import pgPromise from "pg-promise";
 import dotenv from "dotenv";
 import { insertQuestionsIntoDb } from "./queries/questionsQueries.js";
 import { insertAnswersIntoDb } from "./queries/answersQueries.js";
+import { insertWildQuestionsIntoDB } from "./queries/wildQuestionsQueries.js";
+import { insertWildAnswersIntoDb } from "./queries/wildAnswersQueries.js";
 
 const env = process.env.NODE_ENV;
 if (!env) throw new Error("NODE_ENV non impostato");
@@ -70,6 +72,34 @@ const userProgressTableSetup = async () => {
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE)
     `);
 };
+const wildQuestionsTableSetup = async () => {
+  await db.none(`
+    CREATE TABLE IF NOT EXISTS wildQuestions
+    (id SERIAL PRIMARY KEY,
+    user_id INTEGER,
+    questions TEXT,
+    score INTEGER,
+    arguments TEXT,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    UNIQUE (user_id, arguments),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE)
+    `);
+  await insertWildQuestionsIntoDB();
+};
+const wildAnswersTableSetup = async () => {
+  await db.none(`
+    CREATE TABLE IF NOT EXISTS wildAnswers
+    (id SERIAL PRIMARY KEY,
+    answers TEXT,
+    isCorrect BOOLEAN NOT NULL DEFAULT FALSE,
+    questions_id INTEGER,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    FOREIGN KEY (questions_id) REFERENCES wildQuestions(id) ON DELETE CASCADE)
+    `);
+  await insertWildAnswersIntoDb();
+};
 
 export const initializeDatabase = async () => {
   try {
@@ -77,6 +107,8 @@ export const initializeDatabase = async () => {
     await questionsTableSetup();
     await answersTableSetup();
     await userProgressTableSetup();
+    await wildQuestionsTableSetup();
+    await wildAnswersTableSetup();
   } catch (error) {
     console.error("Errore durante l'inizializzazione del database:", error);
     process.exit(1);
