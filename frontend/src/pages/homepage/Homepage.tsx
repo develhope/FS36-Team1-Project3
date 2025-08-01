@@ -4,9 +4,11 @@ import { User, House, LogOut } from "lucide-react"
 import avatar from "../../assets/icone/avatar2.svg"
 import { moduli } from "./moduli"
 import { useGameProgressContext } from "../../context/game-progress/useGameProgressContext"
+import { useUserContext } from "../../context/user/useUserContext"
 
 export function Homepage() {
 	    const { progress } = useGameProgressContext()
+		const {user} = useUserContext()
 
 		const formattedValue = (value: number): number => {
 			if (value === 0) {
@@ -25,8 +27,8 @@ export function Homepage() {
 						</div>
 					</div>
 					<div className="pl-4">
-						<p className="font-bold">Ciao, Silvia! 👋</p>
-						<p className="text-sm">@silvia</p>
+						<p className="font-bold">Ciao, {user?.name}! 👋</p>
+						<p className="text-sm">@{user.name}</p>
 					</div>
 					<div className="bg-my-dark-purple-100 h-[30px] rounded-[15px] ml-20 flex justify-center items-center">
 						<p className="pl-2 pr-2">⭐ {progress.overall} XP</p>
