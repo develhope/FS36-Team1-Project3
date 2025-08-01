@@ -2,17 +2,17 @@ import { User } from "../../models";
 import { db } from "../dbClient.js";
 import { generateToken } from "../../services/generateToken.js";
 
-export const createNewUser = async (user: User): Promise<{ name: string; email: string; id:number; token: string }> => {
+export const createNewUser = async (user: User): Promise<{ name: string; email: string; token: string }> => {
   //l'id serve per associare il progress nella progress table
 
-  const result = await db.one("INSERT INTO users (name, nickname, email, password) VALUES ($1, $2, $3, $4) RETURNING id, email, name",
+  const result = await db.one("INSERT INTO users (name, nickname, email, password) VALUES ($1, $2, $3, $4) RETURNING email, name",
     [user.name, user.nickname, user.email, user.password]);
 
   console.log(result)
   const token = generateToken({ name: result.name, email: result.email });
   console.log(token)
   await db.none("UPDATE users SET token = $1 WHERE id = $2", [token, result.id]);
-  return { name: result.name, email: result.email, id: result.id, token };
+  return { name: result.name, email: result.email, token };
 }
 //example createNewUser({name: "John", nickname: "jonny", age: 30, email: "john.doe@example.com"})
 

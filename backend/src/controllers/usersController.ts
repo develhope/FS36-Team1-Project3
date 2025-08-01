@@ -11,8 +11,7 @@ export const getAllUsers = async (req: Request, res: Response) => {
 export const createNewUserController = async (req: Request, res: Response) => {
   const user = req.body;
   const result = await createNewUser(user);
-  await createNewProgress(result.id);
-  res.json(user);
+  res.json(result);
 };
 
 export const loginUserController = async (req: Request, res: Response) => {
