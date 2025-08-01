@@ -4,7 +4,6 @@ import { useLoginUser } from "../hooks/fetch/useLoginUser"
 import { useRegistration } from "../hooks/fetch/useRegistration"
 import { useUserContext } from "../context/user/useUserContext"
 import { useNavigate } from "react-router-dom"
-import useToast from "../hooks/toast/useToast"
 
 interface AccessPageProps {
 	isNewUser: boolean
@@ -24,7 +23,6 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 
 	const {userLogin} = useLoginUser();
 	const {userRegistration, data} = useRegistration();
-	const {showToast} = useToast()
 
 	const navigate = useNavigate()
 
@@ -119,7 +117,6 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 			</div>
 
 			<form className="w-full max-w-sm mt-5 text-my-black">
-				{data ? "utente registrato": "utente non registrato"}
 				{isNew && !data && (
 					<div className="flex flex-col mb-5">
 						<label htmlFor="name" className="mb-1">

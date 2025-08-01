@@ -1,7 +1,6 @@
-import axios, { type AxiosResponse } from "axios"
+import axios from "axios"
 import { useState } from "react";
 import useToast from "../toast/useToast";
-import { useUserContext } from "../../context/user/useUserContext";
 
 interface Data {
 	name: string,
@@ -16,7 +15,6 @@ export function useRegistration(){
 	const [data, setData] = useState<Data | null>(null)
 
 	const {showToast} = useToast();
-	const {setUser} = useUserContext();
 
 
 	const userRegistration = async (requestBody: {name: string, nickname:string, email:string, password: string}) => {

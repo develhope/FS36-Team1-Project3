@@ -2,7 +2,7 @@ import axios from "axios"
 import { useState } from "react"
 import useToast from "../toast/useToast"
 import { useArgumentContext } from "../../context/argument/useArgumentContext"
-//import { useUserContext } from "../../context/user/useUserContext"
+import { useUserContext } from "../../context/user/useUserContext"
 
 interface Irequest {
     answers: string[]
@@ -14,16 +14,16 @@ export function useSendAnswers() {
     const [error, setError] = useState<string | null>(null)
     const { showToast } = useToast()
     const { argument } = useArgumentContext()
-    //const { user } = useUserContext()
-    
+    const { user } = useUserContext()
+
     const sendAnswers = async (payload: string[]) => {
         setIsLoading(true)
         setError(null)
 
         const request: Irequest = {
             answers: payload,
-            email: "giovanni@esempio.com"
-            //email: user?.email
+            // email: "giovanni@esempio.com"
+            email: user?.email
             // per ora è hardcoded perchè non è implementata l'autenticazione
         }
 
