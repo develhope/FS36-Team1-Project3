@@ -2,7 +2,7 @@ import { getScoreByArgument, updateScore } from "../database/queries/progressQue
 
 export const scoreResult = async (user_id: number, quizScore: number, argument: string) => {  
     const dbScore = await getScoreByArgument(user_id, argument);
-    const result = dbScore + quizScore;
-    await updateScore(user_id, argument, result);
-    return result;
+    if (quizScore !== dbScore) {
+        await updateScore(user_id, argument, quizScore);
+    }
 }

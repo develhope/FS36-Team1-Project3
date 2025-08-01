@@ -8,13 +8,13 @@ import { GameProgressProvider } from "./context/game-progress/GameProgressProvid
 import { UserProvider } from "./context/user/UserProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
-	<UserProvider>
-		<GameProgressProvider>
-			<ArgumentProvider>
-				<BrowserRouter>
+	<BrowserRouter>
+		<UserProvider>
+			<GameProgressProvider>
+				<ArgumentProvider>
 					<App />
-				</BrowserRouter>
-			</ArgumentProvider>
-		</GameProgressProvider>
-	</UserProvider>
+				</ArgumentProvider>
+			</GameProgressProvider>
+		</UserProvider>
+	</BrowserRouter>
 )

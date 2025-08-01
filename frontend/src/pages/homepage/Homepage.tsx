@@ -3,16 +3,18 @@ import { LevelComponent } from "../../components/LevelComponent"
 import { User, House, LogOut } from "lucide-react"
 import avatar from "../../assets/icone/avatar2.svg"
 import { moduli } from "./moduli"
-import { useUserContext } from "../../context/user/useUserContext"
-import { useEffect } from "react"
+import { useGameProgressContext } from "../../context/game-progress/useGameProgressContext"
 
 export function Homepage() {
+	    const { progress } = useGameProgressContext()
 
-	const {user} = useUserContext();
-
-	useEffect(()=> {
-		console.log(user)
-	}, [])
+		const formattedValue = (value: number): number => {
+			if (value === 0) {
+				return 0
+			} else if (value === 1) {
+				return 50
+			} else return 100
+		}
 	return (
 		<>
 			<div className="bg-my-light-purple-100">
@@ -27,7 +29,7 @@ export function Homepage() {
 						<p className="text-sm">@silvia</p>
 					</div>
 					<div className="bg-my-dark-purple-100 h-[30px] rounded-[15px] ml-20 flex justify-center items-center">
-						<p className="pl-2 pr-2">⭐ 236 XP</p>
+						<p className="pl-2 pr-2">⭐ {progress.overall} XP</p>
 					</div>
 				</header>
 				<main className="bg-white rounded-t-[25px] pt-1 pb-20">
@@ -37,7 +39,7 @@ export function Homepage() {
 									argomento={modulo.argomento}
 									img={modulo.img}
 									check={modulo.check}
-									value={modulo.value}
+									value={() => formattedValue(progress[modulo.argomento as keyof typeof progress] || 0)}
 								/>
 							</Link>
 					))}

@@ -1,15 +1,13 @@
-// import { useGameProgressContext } from "../context/game-progress/useGameProgressContext"
 import { useArgumentContext } from "../context/argument/useArgumentContext"
 
 interface LevelComponentProps {
   argomento: string;
   img: string;
   check: string;
-  value: number;
+  value: () => number;
 }
 
 export function LevelComponent({argomento, img, check, value}: LevelComponentProps){
-    // const { progress } = useGameProgressContext()
     const { setArgument } = useArgumentContext()
     return(
         <>
@@ -33,9 +31,9 @@ export function LevelComponent({argomento, img, check, value}: LevelComponentPro
                         <div className="flex flex-col justify-between p-1 mt-5">
                             <div className="flex justify-between p-1">
                                 <p>Progresso:</p>
-                                <p>{value}%</p>
+                                <p>{value()}%</p>
                             </div>
-                            <progress className="rounded-[25px] accent-sky-100" max="100" value={value}></progress>
+                            <progress className="rounded-[25px] accent-sky-100" max="100" value={value()}></progress>
                         </div>
                     </div>
                 </div>

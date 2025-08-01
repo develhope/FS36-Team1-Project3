@@ -51,7 +51,8 @@ export const getScoreByArgumentController = async (
   req: Request,
   res: Response
 ) => {
-  const { userId, argument } = req.params;
-  const score = await getScoreByArgument(Number(userId), argument);
-  res.json({ userId, argument, score });
+  const { email, argument } = req.params;
+  const userId = await getUserIdByEmail(email);
+  const score = await getScoreByArgument(userId, argument);
+  res.json({ argument, score });
 };

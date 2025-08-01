@@ -94,7 +94,7 @@ const Quiz = () => {
 					)}
 
 					{showEndQuizButton && (
-						<div className="flex justify-center items-center h-screen gap-10 p-10">
+						<div className="flex flex-col justify-center items-center h-screen gap-10 p-10">
 							<button
 								onClick={handleBackToHomepage}
 								disabled={isLoading}
