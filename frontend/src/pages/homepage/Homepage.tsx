@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { LevelComponent } from "../../components/LevelComponent"
 import { User, House, LogOut } from "lucide-react"
 import avatar from "../../assets/icone/avatar2.svg"
@@ -7,16 +7,24 @@ import { useGameProgressContext } from "../../context/game-progress/useGameProgr
 import { useUserContext } from "../../context/user/useUserContext"
 
 export function Homepage() {
-	    const { progress } = useGameProgressContext()
-		const {user} = useUserContext()
+	const { progress } = useGameProgressContext()
+	const { user, setUser } = useUserContext()
 
-		const formattedValue = (value: number): number => {
-			if (value === 0) {
-				return 0
-			} else if (value === 1) {
-				return 50
-			} else return 100
-		}
+	const navigate = useNavigate()
+
+	const formattedValue = (value: number): number => {
+		if (value === 0) {
+			return 0
+		} else if (value === 1) {
+			return 50
+		} else return 100
+	}
+
+	const handleLogOut = () => {
+		setUser({ name: "", email: "", token: "" })
+		navigate("/")
+	}
+
 	return (
 		<>
 			<div className="bg-my-light-purple-100">
@@ -36,14 +44,18 @@ export function Homepage() {
 				</header>
 				<main className="bg-white rounded-t-[25px] pt-1 pb-20">
 					{moduli.map((modulo, index) => (
-							<Link to="/quiz" key={index}>
-								<LevelComponent
-									argomento={modulo.argomento}
-									img={modulo.img}
-									check={modulo.check}
-									value={() => formattedValue(progress[modulo.argomento as keyof typeof progress] || 0)}
-								/>
-							</Link>
+						<Link to="/quiz" key={index}>
+							<LevelComponent
+								argomento={modulo.argomento}
+								img={modulo.img}
+								check={modulo.check}
+								value={() =>
+									formattedValue(
+										progress[modulo.argomento as keyof typeof progress] || 0
+									)
+								}
+							/>
+						</Link>
 					))}
 				</main>
 			</div>
@@ -52,9 +64,7 @@ export function Homepage() {
 					<User size={"45px"} />
 				</Link>
 				<House size={"45px"} />
-				<Link to="/">
-					<LogOut size={"45px"} />
-				</Link>
+				<LogOut size={"45px"} onClick={handleLogOut} />
 			</footer>
 		</>
 	)
