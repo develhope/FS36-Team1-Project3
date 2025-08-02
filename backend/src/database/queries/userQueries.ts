@@ -2,19 +2,15 @@ import { User } from "../../models";
 import { db } from "../dbClient.js";
 import { generateToken } from "../../services/generateToken.js";
 
-export const createNewUser = async (user: User): Promise<{ name: string; email: string; token: string }> => {
-  //l'id serve per associare il progress nella progress table
+export const createNewUser = async (user: User): Promise<{ name: string; email: string; nickname: string; token: string }> => {
 
-  const result = await db.one("INSERT INTO users (name, nickname, email, password) VALUES ($1, $2, $3, $4) RETURNING email, name",
+  const result = await db.one("INSERT INTO users (name, nickname, email, password) VALUES ($1, $2, $3, $4) RETURNING email, name, nickname",
     [user.name, user.nickname, user.email, user.password]);
-
-  console.log(result)
   const token = generateToken({ name: result.name, email: result.email });
-  console.log(token)
   await db.none("UPDATE users SET token = $1 WHERE id = $2", [token, result.id]);
-  return { name: result.name, email: result.email, token };
+  return { name: result.name, email: result.email, nickname: result.nickname, token };
 }
-//example createNewUser({name: "John", nickname: "jonny", age: 30, email: "john.doe@example.com"})
+//example createNewUser({name: "John", nickname: "jonny", email: "john.doe@example.com", password: "123456"})
 
 export const fetchAllUsers = async (): Promise<User[]> => {
   const users = await db.any("SELECT * FROM users");
