@@ -1,203 +1,74 @@
-import { useState } from "react"
-import login from "../assets/login.svg"
-import { useLoginUser } from "../hooks/fetch/useLoginUser"
-import { useRegistration } from "../hooks/fetch/useRegistration"
-
-// Funzione di utilità per validare l'email con una semplice regex
-const validateEmail = (email: string): boolean => {
-	const re = /\S+@\S+\.\S+/
-	return re.test(email)
-}
+import { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import LoginForm from '../components/Auth/Login';
+import RegisterForm from '../components/Auth/Register';
+import AuthIllustration from '../components/Auth/Illustration';
 
 const AccessPage = () => {
-	const [isNew] = useState(false)
-	const [email, setEmail] = useState("")
-	const [username, setUsername] = useState("")
-	const [password, setPassword] = useState("")
+  const [isLogin, setIsLogin] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const illustrationRef = useRef<HTMLDivElement>(null);
 
-	const {userLogin} = useLoginUser();
-	const {userRegistration, data} = useRegistration();
+  useEffect(() => {
+    // Animazione iniziale
+    const tl = gsap.timeline();
+    
+    // Anima l'illustrazione solo se esiste (solo nel login)
+    if (illustrationRef.current) {
+      tl.fromTo(
+        illustrationRef.current,
+        { y: -50, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: "back.out(1.7)" }
+      );
+    }
+    
+    // Anima sempre il form container
+    tl.fromTo(
+      containerRef.current?.querySelector('.form-container') as gsap.TweenTarget,
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: "power2.out" },
+      illustrationRef.current ? "-=0.5" : undefined
+    );
+  }, []);
 
+  const handleToggle = () => {
+    const formContainer = containerRef.current?.querySelector('.form-container') as gsap.TweenTarget;
+    
+    gsap.to(formContainer, {
+      x: -20,
+      opacity: 0,
+      duration: 0.2,
+      ease: "power2.in",
+      onComplete: () => {
+        setIsLogin(!isLogin);
+        gsap.to(formContainer, {
+          x: 0,
+          opacity: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        });
+      }
+    });
+  };
 
-	const [errors, setErrors] = useState({
-		username: "",
-		email: "",
-		password: "",
-	})
+  return (
+    <div className="min-h-screen bg-[radial-gradient(circle,_#A283FF,_#BEA8FF,_#DED2FF)] flex items-center justify-center p-4">
+      <div ref={containerRef} className="w-full max-w-md">
+        {isLogin && (
+          <div ref={illustrationRef} className="mb-8 flex justify-center">
+            <AuthIllustration />
+          </div>
+        )}
+        <div className="form-container bg-white/20 backdrop-blur-lg rounded-3xl p-8 shadow-xl border border-white/30">
+          {isLogin ? (
+            <LoginForm onToggle={handleToggle} />
+          ) : (
+            <RegisterForm onToggle={handleToggle} />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
 
-	function toggleState() {
-		setErrors({ username: "", email: "", password: "" })
-	}
-
-	//Funzioni di validazione
-
-	const handleUsername = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const value = e.target.value
-		setUsername(value)
-		if (value.length > 2) {
-			if (value.length < 3) {
-				setErrors((prev) => ({ ...prev, username: "Minimo 3 caratteri" }))
-			} else {
-				setErrors((prev) => ({ ...prev, username: "" }))
-			}
-		} else {
-			setErrors((prev) => ({ ...prev, username: "" }))
-		}
-	}
-
-	const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const value = e.target.value
-		setEmail(value)
-		if (value.length > 4) {
-			if (!validateEmail(value)) {
-				setErrors((prev) => ({ ...prev, email: "Formato email non valido" }))
-			} else {
-				setErrors((prev) => ({ ...prev, email: "" }))
-			}
-		} else {
-			setErrors((prev) => ({ ...prev, email: "" }))
-		}
-	}
-
-	const handlePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const value = e.target.value
-		setPassword(value)
-		if (value.length > 0 && value.length < 8) {
-			setErrors((prev) => ({ ...prev, password: "Minimo 8 caratteri" }))
-		} else {
-			setErrors((prev) => ({ ...prev, password: "" }))
-		}
-	}
-
-	const handleRegisterClick = () => {
-		const requestBody = {
-			name: username,
-			nickname: "ciao",
-			email,
-			password,
-		}
-
-		userRegistration(requestBody)
-	}
-
-	const handleLoginClick = () => {
-		const requestBody = {
-			email: email,
-			password: password
-		}
-
-		userLogin(requestBody)
-
-	}
-
-	const submitValue: string = isNew ? "Registrati" : "Accedi"
-	const switchModeText: string = !isNew
-	? " Sei un nuovo utente? Registrati"
-	: "Sei già utente? accedi"
-
-	return (
-		<div className="flex flex-col items-center justify-center min-h-screen p-4 bg-[radial-gradient(circle,_#A283FF,_#BEA8FF,_#DED2FF)]">
-			<div className="mb-10">
-				<img className={"w-56 h-auto"} src={login} alt="logo" />
-			</div>
-
-			<form className="w-full max-w-sm mt-5 text-my-black">
-				{isNew && !data && (
-					<div className="flex flex-col mb-5">
-						<label htmlFor="name" className="mb-1">
-							Nome
-						</label>
-						<input
-							className={`h-10 px-4 bg-my-white rounded-2xl border-2 transition-colors ${
-								errors.username
-									? "border-red-500"
-									: "border-transparent focus:border-my-light-purple-300"
-							}`}
-							type="text"
-							id="name"
-							name="name"
-							placeholder="Inserisci nome"
-							required
-							value={username}
-							onChange={handleUsername}
-						/>
-						{/* Messaggio di errore mostrato qui sotto */}
-						{errors.username && (
-							<p className="mt-1 text-sm text-red-500">{errors.username}</p>
-						)}
-					</div>
-				)}
-
-				<div className="flex flex-col mb-5">
-					<label htmlFor="email" className="mb-1">
-						Email
-					</label>
-					<input
-						className={`h-10 px-4 bg-my-white rounded-2xl border-2 transition-colors ${
-							errors.email
-								? "border-red-500"
-								: "border-transparent focus:border-my-light-purple-300"
-						}`}
-						type="email"
-						id="email"
-						name="email"
-						placeholder="Inserisci email"
-						required
-						value={email}
-						onChange={handleEmail}
-					/>
-					{/* Messaggio di errore mostrato qui sotto */}
-					{errors.email && <p className="mt-1 text-sm text-red-500">{errors.email}</p>}
-				</div>
-
-				<div className="flex flex-col mb-5">
-					<label htmlFor="password" className="mb-1">
-						Password
-					</label>
-					<input
-						className={`h-10 px-4 bg-my-white rounded-2xl border-2 transition-colors ${
-							errors.password
-								? "border-red-500"
-								: "border-transparent focus:border-my-light-purple-300"
-						}`}
-						type="password"
-						id="password"
-						name="password"
-						placeholder="Inserisci password"
-						required
-						value={password}
-						onChange={handlePassword}
-					/>
-					{/* Messaggio di errore mostrato qui sotto */}
-					{errors.password && (
-						<p className="mt-1 text-sm text-red-500">{errors.password}</p>
-					)}
-				</div>
-					{submitValue == "Accedi" ?
-					<button
-						className="w-full mt-5 rounded-2xl h-12 text-my-white bg-my-light-purple-300 font-bold"
-						type="button"
-						onClick={handleLoginClick}
-					>
-						{submitValue}
-					</button>
-					:
-					<button
-						className="w-full mt-5 rounded-2xl h-12 text-my-white bg-my-light-purple-300 font-bold"
-						type="button"
-						onClick={handleRegisterClick}
-					>
-						{submitValue}
-					</button>
-				}
-
-			</form>
-
-			<a onClick={toggleState} className="mt-5 cursor-pointer">
-				{switchModeText}
-			</a>
-		</div>
-	)
-}
-
-export default AccessPage
+export default AccessPage;
