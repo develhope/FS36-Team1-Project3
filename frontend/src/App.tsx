@@ -11,12 +11,12 @@ function App() {
 	const PublicRoute = ({ children }: { children: React.ReactNode }) => {
 		const { user } = useUserContext()
 		return user.name ? <Navigate to="/homepage" replace /> : <>{children}</>
-	  }
+	}
 	  
-	  const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
+	const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
 		const { user } = useUserContext()
 		return user.name ? <>{children}</> : <Navigate to="/" replace />
-	  }
+	}
 
 	return (
 		<>

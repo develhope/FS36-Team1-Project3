@@ -13,10 +13,12 @@ const Quiz = () => {
 	
 	const [clickedAnswer, setClickedAnswer] = useState<string[]>([])
 	const [index, setIndex] = useState(0)
-	
+
 	const current = response?.[index]
 	const questionNumber = response?.length
 	const showEndQuizButton: boolean = clickedAnswer.length === questionNumber
+
+
 
 	const handleBackToHomepage = () => {
 		navigate("/homepage")
@@ -25,10 +27,12 @@ const Quiz = () => {
 
 	const handlePrev = () => {
 		if (index === 0) {
+			setClickedAnswer([])
 			handleBackToHomepage()
 		}
 		if (index > 0) {
 			setIndex(index - 1)
+			setClickedAnswer((prev) => prev.slice(0, -1))
 		}
 	}
 
