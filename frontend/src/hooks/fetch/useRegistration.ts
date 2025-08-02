@@ -22,7 +22,7 @@ export function useRegistration(){
 			console.log(result)
 			showToast("Registrazione avvenuta con successo", "success")
 
-		} catch (err:any) {
+		} catch (err) {
 			console.log(err)
 			showToast("Registrazione non avvenuta", "danger")
 		}
@@ -31,6 +31,3 @@ export function useRegistration(){
 	return {error, loading, userRegistration}
 
 }
-
-//il return della post deve essere salvato nello useContext
-

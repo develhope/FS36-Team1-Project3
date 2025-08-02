@@ -5,7 +5,6 @@ import { useUserContext } from "../../context/user/useUserContext"
 import useToast from "../toast/useToast"
 import { useLocation } from "react-router-dom";
 
-// Define the response type to match the backend structure
 interface ScoreItem {
   argument: string;
   score: number;

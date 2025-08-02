@@ -6,12 +6,25 @@ import { moduli } from "./moduli"
 import { useGameProgressContext } from "../../context/game-progress/useGameProgressContext"
 import { useUserContext } from "../../context/user/useUserContext"
 import EndCourse from "../../modals/end-course/EndCourse"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export function Homepage() {
 	const { progress } = useGameProgressContext()
+	const {overall, ...restOfProgress} = progress
 	const { user, setUser } = useUserContext()
 	const [isModalOpen, setIsModalOpen] = useState(false)
+
+  	useEffect(() => {
+		//sta cosa fa schifo ma non abbiamo tempo
+		const hasModalBeenShown = sessionStorage.getItem('modalShown');
+		// La funzione `every` controlla se tutti gli elementi di un array soddisfano una condizione.
+		const allValuesAre2 = Object.values(restOfProgress).every(value => value === 2);
+
+		if (!hasModalBeenShown && allValuesAre2) {
+		setIsModalOpen(true);
+		sessionStorage.setItem('modalShown', 'true');
+		}
+  	}, [restOfProgress]);
 
 	const formattedValue = (value: number): number => {
 		if (value === 0) {
@@ -36,7 +49,6 @@ export function Homepage() {
 								alt="user_avatar"
 								onClick={() => setIsModalOpen((prev) => !prev)}
 							/>
-							<EndCourse isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
 						</div>
 					</div>
 					<div className="pl-4">
@@ -44,7 +56,7 @@ export function Homepage() {
 						<p className="text-sm text-white">@{user.nickname}</p>
 					</div>
 					<div className="bg-my-dark-purple-100 h-[30px] rounded-[15px] ml-20 flex justify-center items-center">
-						<p className="pl-2 pr-2 text-white">⭐ {progress.overall} XP</p>
+						<p className="pl-2 pr-2 text-white">⭐ {overall} XP</p>
 					</div>
 				</header>
 				<main className="bg-white rounded-t-[25px] pt-1 pb-20">
@@ -55,7 +67,7 @@ export function Homepage() {
 								img={modulo.img}
 								value={() =>
 									formattedValue(
-										progress[modulo.argomento as keyof typeof progress] || 0
+										restOfProgress[modulo.argomento as keyof typeof restOfProgress] || 0
 									)
 								}
 							/>
@@ -70,6 +82,11 @@ export function Homepage() {
 				<House size={"45px"} />
 				<LogOut size={"45px"} onClick={handleLogOut} />
 			</footer>
+
+			{
+				isModalOpen &&
+				<EndCourse isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+			}
 		</>
 	)
 }

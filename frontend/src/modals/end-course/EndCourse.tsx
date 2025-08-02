@@ -1,11 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Overlay from '../Overlay';
+import { useUserContext } from '../../context/user/useUserContext';
+import { useGameProgressContext } from '../../context/game-progress/useGameProgressContext';
 
 const EndCourse = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
   const navigate = useNavigate()
   const [isAnimating, setIsAnimating] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
+
+  const {user} = useUserContext()
+  const {progress} = useGameProgressContext()
 
   useEffect(() => {
     if (isOpen) {
@@ -23,11 +28,9 @@ const EndCourse = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
   };
 
   const userData = {
-    name: "Silvia",
     avatar: "https://github.com/silvia.png",
-    points: 1500,
     modulesCompleted: 10,
-    modulesTotal: 10
+    modulesTotal: 8
   } 
 
   //con questo approccio la modale smette di esistere del tutto nel DOM
@@ -51,11 +54,11 @@ const EndCourse = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
             <div className="w-24 h-24 bg-gray-200 rounded-full mb-4">
               <img src={userData.avatar} alt="user_avatar" className="w-full h-full rounded-full" />
             </div>
-            <h2 className="text-2xl font-bold">{userData.name}</h2>
+            <h2 className="text-2xl font-bold">{user.name}</h2>
           </div>
           
           <div className="bg-purple-100 rounded-2xl p-4 my-6">
-            <p className="text-3xl font-bold">{userData.points}</p>
+            <p className="text-3xl font-bold">{progress.overall}</p>
             <p className="text-gray-500">Points</p>
           </div>
           

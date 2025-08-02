@@ -30,7 +30,7 @@ const Form: React.FC<FormProps> = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    // Animazione staggered per i campi
+    // Animazione per i campi
     const inputs = formRef.current?.querySelectorAll('.form-field');
     if (inputs) {
       gsap.fromTo(
@@ -60,7 +60,7 @@ const Form: React.FC<FormProps> = ({
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Validazione semplice
+    // Validazione
     const newErrors: Record<string, string> = {};
     fields.forEach(field => {
       if (field.required && !formData[field.name]) {

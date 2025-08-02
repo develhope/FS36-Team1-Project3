@@ -20,14 +20,13 @@ export const GameProgressProvider = ({ children }: { children: ReactNode }) => {
 
 useEffect(() =>{
   if (response) {
-    // Check if argumentScore is an array before using reduce
+    // controlla se è un array
     if (Array.isArray(response.argumentScore)) {
       const formattedProgress = response.argumentScore.reduce((acc, item) => {
         (acc as Record<string, number>)[item.argument] = item.score;
         return acc;
       }, {} as Record<string, number>);
       
-      // Use totalScore instead of overallScore based on backend response
       if (response.totalScore !== undefined) {
         formattedProgress.overall = response.totalScore;
       }
