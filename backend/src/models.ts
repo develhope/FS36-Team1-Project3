@@ -4,6 +4,7 @@ export interface User {
     nickname: string;
     email: string;
     password: string;
+    is_completed?: boolean;
     created_at?: Date;
     updated_at?: Date;
 }

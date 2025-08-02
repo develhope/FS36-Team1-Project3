@@ -28,8 +28,9 @@ const userTableSetup = async () => {
     (id SERIAL PRIMARY KEY,
     name TEXT,
     nickname TEXT,
-    email TEXT,
+    email TEXT UNIQUE,
     password TEXT,
+    is_completed BOOLEAN NOT NULL DEFAULT FALSE,
     token TEXT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP)`);
