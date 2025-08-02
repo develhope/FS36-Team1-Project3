@@ -36,9 +36,8 @@ export function useGetHomepageProgress() {
             const r = await axios.get(`http://localhost:3000/api/game/score/homepage/${email}`)
             setResponse(r.data)
         } catch (err) {
-            console.error("Errore durante la richiesta:", err)
-            setError("Errore durante la richiesta")
-            showToast("Errore durante il caricamento del punteggio", "danger")
+            setError("Errore durante la richiesta: " + (err as Error).message)   
+            showToast("Errore durante il caricamento", "danger")
         } finally {
             setLoading(false)
         }

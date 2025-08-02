@@ -31,11 +31,12 @@ export function useLoginUser(){
         setUser({
           name: data.name,
           email: data.email,
+          nickname: data.nickname,
           token: data.token
         })
 			}
 
-		} catch (err:any) {
+		} catch (err) {
 			console.log(err)
 			showToast("Login non avvenuto", "danger")
 
