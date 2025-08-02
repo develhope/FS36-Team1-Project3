@@ -4,6 +4,7 @@ import useToast from "../toast/useToast";
 
 interface Data {
 	name: string,
+	nickname: string,
 	email: string,
 	password: string
 }
@@ -25,11 +26,11 @@ export function useRegistration(){
 		try {
 			const result: Data = await axios.post("http://localhost:3000/api/users/create-user", requestBody);
 			setData(result)
-			showToast("Login avvenuto con successo", "success")
+			showToast("Registrazione avvenuta con successo", "success")
 
 		} catch (err:any) {
 			console.log(err)
-			showToast("Login non avvenuto", "danger")
+			showToast("Registrazione non avvenuta", "danger")
 		}
 	}
 

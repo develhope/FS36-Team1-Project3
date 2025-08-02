@@ -44,8 +44,6 @@ export function useLoginUser(){
 
   return { error, loading, userLogin}
 
-  //login è la funzione che l'user chiama quando si logga dentro
-
 }
 
 //formato in cui axios invia le info>
