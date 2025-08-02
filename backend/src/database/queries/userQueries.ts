@@ -39,14 +39,15 @@ export const deleteUser = async (id: number): Promise<void> => {
   await db.none("DELETE FROM users WHERE id = $1", [id]);
 }
 
-export const loginUser = async (email: string, password: string): Promise<{ name: string; email: string, token: string }> => {
-const user = await db.one("SELECT * FROM users WHERE email= $1", [email]);
-  if (!user || user.password !== password){
+export const loginUser = async (email: string, password: string): Promise<{ name: string; email: string; nickname: string; token: string }> => {
+  const user = await db.one("SELECT name, nickname, password FROM users WHERE email = $1", [email]);
+  
+  if (!user || user.password !== password) {
     throw new Error("Email or password not correct");
   }
 
-  const token = generateToken({ name: user.name, email: user.email });
-  return { name: user.name, email: user.email, token }; //name, email, token as in the Promise statement
+  const token = generateToken({ name: user.name, email: email });
+  return { name: user.name, email: email, nickname: user.nickname, token };
 
 
   //il return è indispensabile altrimenti in Promise<{}> appare il seguente errore:
