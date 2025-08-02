@@ -1,13 +1,7 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import login from "../assets/login.svg"
 import { useLoginUser } from "../hooks/fetch/useLoginUser"
 import { useRegistration } from "../hooks/fetch/useRegistration"
-import { useUserContext } from "../context/user/useUserContext"
-import { useNavigate } from "react-router-dom"
-
-interface AccessPageProps {
-	isNewUser: boolean
-}
 
 // Funzione di utilità per validare l'email con una semplice regex
 const validateEmail = (email: string): boolean => {
@@ -15,16 +9,14 @@ const validateEmail = (email: string): boolean => {
 	return re.test(email)
 }
 
-const AccessPage = ({ isNewUser }: AccessPageProps) => {
-	const [isNew, setIsNew] = useState(isNewUser)
+const AccessPage = () => {
+	const [isNew] = useState(false)
 	const [email, setEmail] = useState("")
 	const [username, setUsername] = useState("")
 	const [password, setPassword] = useState("")
 
 	const {userLogin} = useLoginUser();
 	const {userRegistration, data} = useRegistration();
-
-	const navigate = useNavigate()
 
 
 	const [errors, setErrors] = useState({
@@ -33,14 +25,7 @@ const AccessPage = ({ isNewUser }: AccessPageProps) => {
 		password: "",
 	})
 
-	const {user} = useUserContext();
-
-	useEffect(() => {
-		if(user.name) navigate("/homepage")
-	}, [user])
-
 	function toggleState() {
-		!isNew ? setIsNew(true) : setIsNew(false)
 		setErrors({ username: "", email: "", password: "" })
 	}
 
