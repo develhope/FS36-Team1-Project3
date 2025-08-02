@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { LevelComponent } from "../../components/LevelComponent"
 import { User, House, LogOut } from "lucide-react"
 import avatar from "../../assets/icone/avatar2.svg"
@@ -13,8 +13,6 @@ export function Homepage() {
 	const { user, setUser } = useUserContext()
 	const [isModalOpen, setIsModalOpen] = useState(false)
 
-	const navigate = useNavigate()
-
 	const formattedValue = (value: number): number => {
 		if (value === 0) {
 			return 0
@@ -24,8 +22,7 @@ export function Homepage() {
 	}
 
 	const handleLogOut = () => {
-		setUser({ name: "", email: "", token: "" })
-		navigate("/")
+		setUser({ name: "", email: "", nickname: "", token: "" })
 	}
 
 	return (
@@ -44,7 +41,7 @@ export function Homepage() {
 					</div>
 					<div className="pl-4">
 						<p className="font-bold text-white">Ciao, {user?.name}! 👋</p>
-						<p className="text-sm text-white">@{user.name}</p>
+						<p className="text-sm text-white">@{user.nickname}</p>
 					</div>
 					<div className="bg-my-dark-purple-100 h-[30px] rounded-[15px] ml-20 flex justify-center items-center">
 						<p className="pl-2 pr-2 text-white">⭐ {progress.overall} XP</p>
