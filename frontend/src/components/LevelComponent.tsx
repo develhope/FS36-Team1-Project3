@@ -25,18 +25,17 @@ export function LevelComponent({argomento, img, value}: LevelComponentProps){
                     <div className="flex flex-col ml-4">
                         <div className="flex flex-row justify-between items-start">
                             <div className="p-1">
-                                <p>Completato:</p>
-                                <b> {argomento}</b>
+                                <p className="text-white">Completato:</p>
+                                <b className="text-white"> {argomento}</b>
                             </div>
                             <div className="bg-my-dark-purple-100 ml-20 w-[30px] h-[30px] rounded-[50px]">
-                                {/* <img className="p-1 w-[29px] h-[29px]" src={check} /> */}
                                 {icon}
                             </div>
                         </div>
                         <div className="flex flex-col justify-between p-1 mt-5">
                             <div className="flex justify-between p-1">
-                                <p>Progresso:</p>
-                                <p>{value()}%</p>
+                                <p className="text-white">Progresso:</p>
+                                <p className="text-white">{value()}%</p>
                             </div>
                             <progress className="rounded-[25px] accent-sky-100" max="100" value={value()}></progress>
                         </div>
