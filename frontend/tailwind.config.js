@@ -1,7 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-	safelist: [{ pattern: /bg-my-dark-(success|danger|warning)/}],
+	safelist: [
+		{ pattern: /bg-my-dark-(success|danger|warning)/ },
+		{ pattern: /bg-(html|css|javascript|typescript|react|sql|git|node)/ },
+	],
 	theme: {
 		extend: {
 			colors: {
@@ -26,6 +29,15 @@ export default {
 				"my-black": "#080825",
 				"my-white": "#FBFBFF",
 				"my-disabled": "#CECADA",
+
+				html: "#E34C26",
+				css: "#214CE5",
+				javascript: "#F0DB4F",
+				typescript: "#007ACC",
+				react: "#61DBFB",
+				sql: "#D96F2E",
+				git: "#F1502F",
+				node: "#68A063",
 			},
 		},
 	},

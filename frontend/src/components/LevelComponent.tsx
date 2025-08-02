@@ -17,9 +17,9 @@ export function LevelComponent({argomento, img, value}: LevelComponentProps){
         <>
             <div
             onClick={() => setArgument(argomento)}
-            className="bg-my-light-purple-100 p-5 m-7 rounded-[30px] text-[12px] shadow-md">
+            className={`bg-${argomento} p-5 m-7 rounded-[30px] text-[12px] shadow-md`}>
                 <div className="flex flex-row">
-                    <div className="bg-my-dark-purple-100 w-[110px] h-[110px] rounded-[25px] flex">
+                    <div className="bg-white w-[110px] h-[110px] rounded-[25px] flex">
                         <img className="max-w-[100%] p-3" src={img}/>
                     </div>
                     <div className="flex flex-col ml-4">
