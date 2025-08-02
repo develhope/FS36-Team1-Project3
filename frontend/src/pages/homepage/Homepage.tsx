@@ -43,11 +43,11 @@ export function Homepage() {
 						</div>
 					</div>
 					<div className="pl-4">
-						<p className="font-bold">Ciao, {user?.name}! 👋</p>
-						<p className="text-sm">@{user.name}</p>
+						<p className="font-bold text-white">Ciao, {user?.name}! 👋</p>
+						<p className="text-sm text-white">@{user.name}</p>
 					</div>
 					<div className="bg-my-dark-purple-100 h-[30px] rounded-[15px] ml-20 flex justify-center items-center">
-						<p className="pl-2 pr-2">⭐ {progress.overall} XP</p>
+						<p className="pl-2 pr-2 text-white">⭐ {progress.overall} XP</p>
 					</div>
 				</header>
 				<main className="bg-white rounded-t-[25px] pt-1 pb-20">
