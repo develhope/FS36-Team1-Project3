@@ -1,22 +1,15 @@
 import axios from "axios"
 import { useState } from "react";
 import useToast from "../toast/useToast";
-
-interface Data {
-	name: string,
-	nickname: string,
-	email: string,
-	password: string
-}
+import { useUserContext } from "../../context/user/useUserContext";
 
 
 export function useRegistration(){
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
-	const [data, setData] = useState<Data | null>(null)
 
 	const {showToast} = useToast();
-
+	const {setUser} = useUserContext()
 
 	const userRegistration = async (requestBody: {name: string, nickname:string, email:string, password: string}) => {
 
@@ -24,8 +17,9 @@ export function useRegistration(){
     	setError(null);
 
 		try {
-			const result: Data = await axios.post("http://localhost:3000/api/users/create-user", requestBody);
-			setData(result)
+			const result = await axios.post("http://localhost:3000/api/users/create-user", requestBody);
+			setUser(result.data)
+			console.log(result)
 			showToast("Registrazione avvenuta con successo", "success")
 
 		} catch (err:any) {
@@ -34,7 +28,7 @@ export function useRegistration(){
 		}
 	}
 
-	return {data, error, loading, userRegistration}
+	return {error, loading, userRegistration}
 
 }
 

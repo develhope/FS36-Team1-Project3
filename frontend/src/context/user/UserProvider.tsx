@@ -13,6 +13,7 @@ potrebbe non essere la soluzione migliore, vedi se trovi di meglio
     const [userState, setUserState] = useState({
     name: "",
     email: "",
+    nickname:"",
     token: ""
   });
 

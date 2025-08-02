@@ -4,9 +4,10 @@ interface UserContextType {
   user: {
     name: string;
     email: string;
+    nickname: string;
     token: string
   };
-  setUser: (user: { name: string; email: string; token: string }) => void;
+  setUser: (user: { name: string; email: string; nickname: string; token: string }) => void;
 }
 
 //crea il context
