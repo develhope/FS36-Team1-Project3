@@ -59,7 +59,7 @@ const AccessPage = () => {
             <AuthIllustration />
           </div>
         )}
-        <div className="form-container bg-white/20 backdrop-blur-lg rounded-3xl p-8 shadow-xl border border-white/30">
+        <div className="form-container rounded-3xl p-8">
           {isLogin ? (
             <LoginForm onToggle={handleToggle} />
           ) : (
