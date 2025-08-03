@@ -1,9 +1,20 @@
 /** @type {import('tailwindcss').Config} */
+
+// Funzione per generare le classi dinamiche
+const generateColorClasses = (types, color, shades) => {
+	return types.flatMap((type) => shades.map((shade) => `${type}-${color}-${shade}`))
+}
+
 export default {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 	safelist: [
 		{ pattern: /bg-my-dark-(success|danger|warning)/ },
 		{ pattern: /bg-(html|css|javascript|typescript|react|sql|git|node)/ },
+		...generateColorClasses(
+			["bg", "border", "text"], // Tipi
+			"purple", // Colore
+			[0, 100, 200, 300, 400, 500] // Shade
+		),
 	],
 	theme: {
 		extend: {

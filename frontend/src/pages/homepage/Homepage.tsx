@@ -55,7 +55,7 @@ export function Homepage() {
 						<p className="pl-2 pr-2 text-white">⭐ {overall} XP</p>
 					</div>
 				</header>
-				<main className="bg-white rounded-t-[25px] pt-1 pb-20">
+				<main className="bg-gray-100 rounded-t-[25px] pt-1 pb-20">
 					{moduli.map((modulo, index) => (
 						<Link to="/quiz" key={index}>
 							<LevelComponent
