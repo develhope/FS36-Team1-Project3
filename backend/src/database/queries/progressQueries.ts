@@ -17,7 +17,6 @@ export const getAllScoresByArgument = async (user_id: number) => {
     "SELECT argument, score FROM progress WHERE user_id = $1",
     [user_id]
   );
-  console.log("prova", prova);
   return (prova)
 }
 export const getScoreByArgument = async (
