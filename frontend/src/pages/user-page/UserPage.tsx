@@ -150,7 +150,7 @@ function UserPage() {
 						</div>
 						<div>
 							<div className="text-2xl font-semibold text-gray-900">CSS</div>
-							<div className="text-md text-gray-600">7/10 domande complete</div>
+							<div className="text-md text-gray-600">2/2 domande complete</div>
 						</div>
 						<div className="w-10 h-10 flex items-center justify-center ml-14">
 							<span className="text-blue-500 text-lg">
