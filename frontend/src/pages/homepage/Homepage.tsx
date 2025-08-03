@@ -37,7 +37,7 @@ export function Homepage() {
 
 	return (
 		<>
-			<div className="bg-my-light-purple-200">
+			<div className="bg-my-light-purple-100">
 				<header className="flex justify-between items-center px-6 pt-16 pb-6">
 					<div className="flex items-center gap-4">
 						<div className="w-20 h-20 rounded-full bg-white/40 flex items-center justify-center">
@@ -73,7 +73,7 @@ export function Homepage() {
 					))}
 				</main>
 			</div>
-			<footer className="fixed bottom-0 left-0 w-screen bg-my-light-purple-200 h-[70px] flex flex-row items-center justify-between p-[35px] accent-inherit">
+			<footer className="fixed bottom-0 left-0 w-screen bg-my-light-purple-100 h-[70px] flex flex-row items-center justify-between p-[35px] accent-inherit">
 				<Link to="/userpage">
 					<User size={"45px"} />
 				</Link>

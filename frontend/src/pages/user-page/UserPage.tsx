@@ -1,32 +1,85 @@
-import { ChevronLeft, Settings, Star, Flame, Sprout, Gem } from "lucide-react"
-import { moduli } from "./moduli"
+import { ChevronLeft, Settings, Gem } from "lucide-react"
+import { moduli, achievements, createStatsConfig } from "./moduli"
 import { Link } from "react-router-dom"
 import { useUserContext } from "../../context/user/useUserContext"
 import { useGameProgressContext } from "../../context/game-progress/useGameProgressContext"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import {gsap} from 'gsap'
+import UserAchievement from "../../components/UserAchievements"
+import StatsCard from "../../components/UserStats"
+
+// Utility function for GSAP animations - fixed overflow issues
+const animateElement = (ref: React.RefObject<HTMLDivElement | null>, delay: number = 0.2) => {
+	if (ref.current) {
+		gsap.set(ref.current, {
+			opacity: 0,
+			x: 50 // Reduced from 100 to prevent overflow
+		})
+
+		gsap.to(ref.current, {
+			opacity: 1,
+			x: 0,
+			duration: 0.8,
+			ease: "power2.out",
+			delay
+		})
+	}
+}
+
+
 
 function UserPage() {
-	const {user} = useUserContext()
-	const {progress} = useGameProgressContext()
 	const [completedModules, setCompletedModules] = useState(0)
 	
-useEffect(() => {
-    
-	//eslint si lamenta che overall non viene usato, ma è il nostro obbiettivo
-	//eslint-disable-next-line
-    const { overall, ...restOfProgress } = progress;
+	const quizRef = useRef<HTMLDivElement>(null)
+	const statsRef = useRef<HTMLDivElement>(null)
+	const userInfoRef = useRef<HTMLDivElement>(null)
+	const achievementsRef = useRef<(HTMLDivElement | null)[]>([])
 
-	//dobbiamo ritornare quanti quiz sono stati superati con successo
-	//il due rappresenta la quantità di domande che per ora è hardcodata
-    const modulesCount = Object.values(restOfProgress)
-                                .filter(value => value >= 2)
-                                .length;
-    
-    setCompletedModules(modulesCount);
-}, [progress]);
+	const {user} = useUserContext()
+	const {progress} = useGameProgressContext()
+	
+	useEffect(() => {
+		//eslint si lamenta che overall non viene usato, ma è il nostro obbiettivo
+		//eslint-disable-next-line
+		const { overall, ...restOfProgress } = progress;
+
+		//dobbiamo ritornare quanti quiz sono stati superati con successo
+		//il due rappresenta la quantità di domande che per ora è hardcodata
+		const modulesCount = Object.values(restOfProgress)
+									.filter(value => value >= 2)
+									.length;
+		
+		setCompletedModules(modulesCount);
+	}, [progress]);
+
+	//animazioni
+	useEffect(() => {
+		// Animate all sections using utility function
+		animateElement(quizRef)
+		animateElement(statsRef)
+		animateElement(userInfoRef)
+
+		// Animate achievements - fixed scale overflow
+		gsap.set(achievementsRef.current, { 
+			opacity: 0, 
+			y: 20, // Reduced from 30
+			scale: 0.9 // Increased from 0.8 to reduce overflow
+		})
+
+		gsap.to(achievementsRef.current, {
+			opacity: 1,
+			y: 0,
+			scale: 1,
+			duration: 0.6,
+			ease: "back.out(1.7)",
+			stagger: 0.2,
+			delay: 0.5
+		})
+	}, [])
 
 	return (
-		<div className="bg-my-light-purple-100">
+		<div className="bg-my-light-purple-100 min-h-screen overflow-x-hidden">
 			{/* HEADER PULSANTI */}
 			<div className="flex justify-between items-center mb-8 pt-4 px-4">
 				<Link to="/homepage">
@@ -40,7 +93,9 @@ useEffect(() => {
 			</div>
 
 			{/* AVATAR E USERNAME */}
-			<div className="text-center mb-8 flex flex-col items-center justify-center">
+			<div
+			ref={userInfoRef} 
+			className="text-center mb-8 flex flex-col items-center justify-center">
 				<div className="w-32 h-32 mx-auto mb-4 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
 					<div className="w-28 h-28 rounded-full bg-purple-100 flex items-center justify-center">
 						<img src={moduli.avatar} alt="user_avatar" />
@@ -53,75 +108,42 @@ useEffect(() => {
 			</div>
 
 			{/* STATISTICHE */}
-			<div className="h-full bg-white/90 rounded-t-3xl p-6">
-				<div className="grid grid-cols-3 gap-4">
-					<div className="bg-my-light-purple-100 rounded-2xl p-4 text-center shadow-md">
-						<div className="w-8 h-8 flex items-center justify-center mx-auto mb-2">
-							<Star className="w-10 h-10 text-yellow-200" fill="currentColor" />
-						</div>
-						<div className="text-xl font-bold text-gray-900">{progress.overall} XP</div>
-						<div className="text-sm text-gray-600">Punti</div>
-					</div>
-					<div className="bg-my-light-purple-100 rounded-2xl p-4 text-center shadow-md">
-						<div className="w-8 h-8 flex items-center justify-center mx-auto mb-2">
-							<Flame className="w-10 h-10 text-orange-400" fill="currentColor" />
-						</div>
-						<div className="text-xl font-bold text-gray-900">{completedModules} Quiz</div>
-						<div className="text-sm text-gray-600">Completati</div>
-					</div>
-					<div className="bg-my-light-purple-100 rounded-2xl p-4 text-center shadow-md">
-						<div className="w-8 h-8 flex items-center justify-center mx-auto mb-2">
-							<Sprout className="w-10 h-10 text-green-500" />
-						</div>
-						<div className="text-xl font-bold text-gray-900">Beginner</div>
-						<div className="text-sm text-gray-600">Livello</div>
-					</div>
+			<div className="h-full bg-white/90 rounded-t-3xl p-6 overflow-hidden">
+				<div 
+					ref={statsRef}
+					className="grid grid-cols-3 gap-4"
+				>
+					{createStatsConfig(progress, completedModules).map((stat, index) => (
+						<StatsCard
+							key={index}
+							icon={stat.icon}
+							value={stat.value}
+							label={stat.label}
+							iconColor={stat.iconColor}
+						/>
+					))}
 				</div>
 
 				{/* ACHIEVEMENTS */}
 				<h2 className="text-2xl font-bold text-gray-900 mb-4 mt-14">Achievements</h2>
-				<div className="grid grid-cols-4 gap-4">
-					<div className="text-center">
-						<div className="w-15 h-15 rounded-full">
-							<img src={moduli.beginner} alt="b_achiev" className="rounded-full shadow-md" />
-						</div>
-						<div className="text-md text-gray-600 mt-2">Beginner Dev</div>
-					</div>
-					<div className="text-center">
-						<div className="w-15 h-15">
-							<img
-								src={moduli.junior}
-								alt="j_achiev"
-								className="rounded-full shadow-md opacity-50"
-							/>
-						</div>
-						<div className="text-md text-gray-400 mt-2">Junior Dev</div>
-					</div>
-					<div className="text-center">
-						<div className="w-15 h-15">
-							<img
-								src={moduli.senior}
-								alt="s_achiev"
-								className="rounded-full shadow-md opacity-50"
-							/>
-						</div>
-						<div className="text-md text-gray-400 mt-2">Senior Dev</div>
-					</div>
-					<div className="text-center">
-						<div className="w-15 h-15">
-							<img
-								src={moduli.diamond}
-								alt="d_achiev"
-								className="rounded-full shadow-md opacity-50"
-							/>
-						</div>
-						<div className="text-md text-gray-400 mt-2">Diamond Dev</div>
-					</div>
+				<div className="grid grid-cols-4 gap-4 overflow-hidden">
+					{achievements.map((achievement, index) => (
+						<UserAchievement
+							key={achievement.title}
+							index={index}
+							image={achievement.image}
+							title={achievement.title}
+							isUnlocked={achievement.isUnlocked}
+							achievementsRef={achievementsRef}
+						/>
+					))}
 				</div>
 
 				{/* ULTIMO QUIZ */}
-				<h2 className="text-2xl font-bold text-gray-900 mb-4 mt-14">Ultimo Quiz</h2>
-				<div className="flex items-center justify-between">
+				<h2 className="text-2xl font-bold text-gray-900 mb-4 mt-10">Ultimo Quiz</h2>
+				<div
+				ref={quizRef} 
+				className="flex items-center justify-between">
 					<div className="w-full h-[80px] flex items-center justify-between bg-gray-100 p-2 rounded">
 						<div className="w-16 h-16 bg-gray-200 p-2 rounded">
 							<img src={moduli.css} alt="css_icon" />
