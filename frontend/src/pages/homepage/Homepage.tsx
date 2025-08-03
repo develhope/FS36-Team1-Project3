@@ -8,7 +8,7 @@ import { useUserContext } from "../../context/user/useUserContext"
 
 export function Homepage() {
 	
-	const { progress } = useGameProgressContext()
+	const { progress, setProgress } = useGameProgressContext()
 	const {overall, ...restOfProgress} = progress
 	const { user, setUser } = useUserContext()
 
@@ -22,6 +22,17 @@ export function Homepage() {
 
 	const handleLogOut = () => {
 		setUser({ name: "", email: "", nickname: "",is_completed: false, token: "" })
+		setProgress({
+			html: 0,
+  			css: 0,
+			javascript: 0,
+			typescript: 0,
+			react: 0,
+			sql: 0,
+			git: 0,
+			node: 0,
+			overall: 0, 
+		})
 	}
 
 	return (
