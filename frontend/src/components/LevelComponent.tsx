@@ -2,7 +2,6 @@ import { useArgumentContext } from "../context/argument/useArgumentContext"
 import { gsap } from "gsap";
 import { Lock, LockOpen, Check } from "lucide-react"
 import { useEffect, useRef } from "react";
-import { useGameProgressContext } from "../context/game-progress/useGameProgressContext";
 
 
 interface LevelComponentProps {
@@ -13,7 +12,6 @@ interface LevelComponentProps {
 
 export function LevelComponent({argomento, img, value}: LevelComponentProps){
     const { setArgument } = useArgumentContext()
-    const {progress} = useGameProgressContext()
 
     const containerRef = useRef<HTMLDivElement>(null)
     const progressRef = useRef<HTMLDivElement>(null)
@@ -50,7 +48,7 @@ export function LevelComponent({argomento, img, value}: LevelComponentProps){
                 delay: 0.5 // Inizia dopo l'animazione del container
             })
         }
-    }, [progress])
+    }, [value])
 
     return(
         <>
