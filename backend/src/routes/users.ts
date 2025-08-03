@@ -1,14 +1,12 @@
 import { Router} from "express";
-import { getAllUsers, createNewUserController, loginUserController, logoutUserController } from "../controllers/usersController.js";
-import { getUserIdByEmail } from "../database/queries/userQueries.js";
+import { createNewUserController, loginUserController, logoutUserController, updateIsCompletedController } from "../controllers/usersController.js";
 import { authorize } from "../services/authorize.js";
 import passport from "passport";
 
 export const usersRouter = Router();
 
-usersRouter.get("/", getAllUsers);
-usersRouter.get("/:email", getUserIdByEmail);
 usersRouter.post("/create-user", createNewUserController);
+usersRouter.post("/is-completed", updateIsCompletedController);
 usersRouter.post("/login", loginUserController)
 usersRouter.get("/logout", authorize, logoutUserController)
 usersRouter.get("/profile", passport.authenticate("jwt", { session: false }), (req, res) => {

@@ -14,6 +14,7 @@ potrebbe non essere la soluzione migliore, vedi se trovi di meglio
     name: "",
     email: "",
     nickname:"",
+    is_completed: false,
     token: ""
   });
 

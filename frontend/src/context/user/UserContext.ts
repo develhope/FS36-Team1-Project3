@@ -5,9 +5,10 @@ interface UserContextType {
     name: string;
     email: string;
     nickname: string;
+    is_completed: boolean;
     token: string
   };
-  setUser: (user: { name: string; email: string; nickname: string; token: string }) => void;
+  setUser: (user: { name: string; email: string; nickname: string; is_completed:boolean; token: string }) => void;
 }
 
 //crea il context

@@ -5,26 +5,12 @@ import avatar from "../../assets/icone/avatar2.svg"
 import { moduli } from "./moduli"
 import { useGameProgressContext } from "../../context/game-progress/useGameProgressContext"
 import { useUserContext } from "../../context/user/useUserContext"
-import EndCourse from "../../modals/end-course/EndCourse"
-import { useEffect, useState } from "react"
 
 export function Homepage() {
+	
 	const { progress } = useGameProgressContext()
 	const {overall, ...restOfProgress} = progress
 	const { user, setUser } = useUserContext()
-	const [isModalOpen, setIsModalOpen] = useState(false)
-
-  	useEffect(() => {
-		//sta cosa fa schifo ma non abbiamo tempo
-		const hasModalBeenShown = sessionStorage.getItem('modalShown');
-		// La funzione `every` controlla se tutti gli elementi di un array soddisfano una condizione.
-		const allValuesAre2 = Object.values(restOfProgress).every(value => value === 2);
-
-		if (!hasModalBeenShown && allValuesAre2) {
-		setIsModalOpen(true);
-		sessionStorage.setItem('modalShown', 'true');
-		}
-  	}, [restOfProgress]);
 
 	const formattedValue = (value: number): number => {
 		if (value === 0) {
@@ -35,7 +21,7 @@ export function Homepage() {
 	}
 
 	const handleLogOut = () => {
-		setUser({ name: "", email: "", nickname: "", token: "" })
+		setUser({ name: "", email: "", nickname: "",is_completed: false, token: "" })
 	}
 
 	return (
@@ -47,7 +33,6 @@ export function Homepage() {
 							<img
 								src={avatar}
 								alt="user_avatar"
-								onClick={() => setIsModalOpen((prev) => !prev)}
 							/>
 						</div>
 					</div>
@@ -82,11 +67,6 @@ export function Homepage() {
 				<House size={"45px"} />
 				<LogOut size={"45px"} onClick={handleLogOut} />
 			</footer>
-
-			{
-				isModalOpen &&
-				<EndCourse isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
-			}
 		</>
 	)
 }

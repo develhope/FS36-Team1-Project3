@@ -1,10 +1,12 @@
 import { Request, Response } from "express";
-import { User } from "../models";
-import { fetchAllUsers, createNewUser, loginUser, logoutUser } from "../database/queries/userQueries.js";
+import { createNewUser, getUserIdByEmail, loginUser, logoutUser, updateIsCompleted } from "../database/queries/userQueries.js";
 
-export const getAllUsers = async (req: Request, res: Response) => {
-  const users = await fetchAllUsers();
-  res.json(users);
+export const updateIsCompletedController = async (req: Request, res: Response) => {
+  const user = req.body;
+  const userId = await getUserIdByEmail(user.email);
+  user.id = userId;
+  const result = await updateIsCompleted(user);
+  res.json(result);
 };
 
 export const createNewUserController = async (req: Request, res: Response) => {

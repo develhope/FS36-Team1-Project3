@@ -6,7 +6,6 @@ import dotenv from "dotenv";
 import { apiRouter } from "./routes/api.js";
 import cors from "cors";
 import { initializeDatabase } from "./database/dbClient.js";
-import { createNewUserController } from "./controllers/usersController.js";
 
 // Verifica NODE_ENV
 const env = process.env.NODE_ENV;
