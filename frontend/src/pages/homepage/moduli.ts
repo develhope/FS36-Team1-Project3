@@ -5,7 +5,7 @@ import jsImg from "../../assets/icone/js.png"
 import tsImg from "../../assets/icone/ts.png"
 import reactImg from "../../assets/icone/react.png"
 import sqlImg from "../../assets/icone/sql.png"
-import gitImg from "../../assets/icone/git-logo.svg"
+import gitImg from "../../assets/icone/git.png"
 import nodeImg from "../../assets/icone/nodejs.png"
 
 export const moduli = [

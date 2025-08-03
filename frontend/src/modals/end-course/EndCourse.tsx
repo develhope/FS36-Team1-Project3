@@ -1,39 +1,27 @@
-// import { useEffect, useRef, useState } from 'react';
-// import usePrevious from './usePrevious';
-// import { useUserContext } from '../../context/user/useUserContext';
-// import Modal from './Modal';
+import { useEffect, useState } from 'react';
+import { useGameProgressContext } from '../../context/game-progress/useGameProgressContext';
+import Modal from './Modal';
 
-
-// const EndCourse = () => {
-//   const [canBeOpen, setCanBeOpen] = useState(false);
-
-//   const isMounted = useRef(false);
+const EndCourse = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { progress } = useGameProgressContext();
   
-//   const {user} = useUserContext()
-//   const {is_completed} = user
-  
-//   const prevCondition = usePrevious(is_completed);
+  // Controlla se tutti i moduli sono completati (score = 2 per ogni modulo)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { overall, ...restOfProgress } = progress;
+  const allModulesCompleted = Object.values(restOfProgress).every(value => value === 2);
 
+  useEffect(() => {
+    // Mostra la modale quando tutti i moduli sono completati
+    if (allModulesCompleted) {
+      console.log("Tutti i moduli completati - mostrando modale");
+      setIsModalOpen(true);
+    }
+  }, [allModulesCompleted]);
 
-//   useEffect(() => {
-//     if (is_completed && !isMounted.current) {
-//       console.log("Azione A: Il componente è partito con 'isAttivo' già a true.");
-//       // Inserisci qui la logica da eseguire se il componente parte con il valore a true
-//     }
+  return (
+    <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+  );
+};
 
-//     if (is_completed && !prevCondition && isMounted.current) {
-//       console.log("Azione B: 'isAttivo' è passato da false a true.");  
-//       setCanBeOpen (true)
-//     }
-        
-//     isMounted.current = true;
-
-//   }, [is_completed, prevCondition]); 
-
-//   return (
-//     <Modal isOpen={canBeOpen} onClose={() => setCanBeOpen(false)} />
-//   );
-// };
-
-
-// export default EndCourse
+export default EndCourse;

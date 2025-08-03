@@ -42,7 +42,8 @@ export function useGetHomepageProgress() {
         }
     }
 
-    if (location.pathname === '/homepage') {
+    // Aggiorna il progresso sia nella homepage che quando si torna da un quiz completato
+    if (location.pathname === '/homepage' || location.pathname === '/endmodule') {
         fetchData()
     }
     //eslint-disable-next-line react-hooks/exhaustive-deps

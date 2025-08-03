@@ -103,7 +103,7 @@ function UserPage() {
 				</div>
 				<h1 className="text-3xl font-bold text-gray-900 mb-2">{user.name}</h1>
 				<div className="px-4 py-1 rounded-full bg-white/50 mt-2 max-w-[80%] overflow-hidden">
-					<p className="text-lg text-black-700 truncate">@{user.name}</p>
+					<p className="text-lg text-black truncate">@{user.nickname}</p>
 				</div>
 			</div>
 

@@ -5,8 +5,17 @@ import UserPage from "./pages/user-page/UserPage.tsx"
 import Quiz from "./pages/Quiz.tsx"
 import EndModule from "./pages/end-module/EndModule.tsx"
 import { useUserContext } from "./context/user/useUserContext.ts"
+import { useEffect } from "react"
 
 function App() {
+
+	useEffect(() => {
+		console.log(`
+			╭────────────────────────╮
+			│    grazie giuseppe     │
+			╰────────────────────────╯
+		`);
+	  }, []);
 
 	const PublicRoute = ({ children }: { children: React.ReactNode }) => {
 		const { user } = useUserContext()

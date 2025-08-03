@@ -1,16 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Overlay from '../Overlay';
-import { useUserContext } from '../../context/user/useUserContext';
-import { useGameProgressContext } from '../../context/game-progress/useGameProgressContext';
 
 const Modal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) => {
   const navigate = useNavigate()
   const [isAnimating, setIsAnimating] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
 
-  const {user} = useUserContext()
-  const {progress} = useGameProgressContext()
 
   useEffect(() => {
     if (isOpen) {
@@ -26,6 +22,11 @@ const Modal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) =>
     setIsAnimating(false);
     setTimeout(() => onClose(), 300);
   };
+
+  const handleHomeButton = () => {
+    navigate("/homepage")
+    onClose()
+  }
 
   const userData = {
     avatar: "https://github.com/silvia.png",
@@ -54,21 +55,21 @@ const Modal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) =>
             <div className="w-24 h-24 bg-gray-200 rounded-full mb-4">
               <img src={userData.avatar} alt="user_avatar" className="w-full h-full rounded-full" />
             </div>
-            <h2 className="text-2xl font-bold">{user.name}</h2>
+            <h2 className="text-2xl font-bold">prova</h2>
           </div>
           
           <div className="bg-purple-100 rounded-2xl p-4 my-6">
-            <p className="text-3xl font-bold">{progress.overall}</p>
+            <p className="text-3xl font-bold">prova</p>
             <p className="text-gray-500">Points</p>
           </div>
           
           <div className="bg-purple-100 rounded-2xl p-4 mb-6 flex items-center justify-center">
             <p className="mr-2">Moduli completati</p>
-            <p className="ml-auto text-lg font-semibold">{userData.modulesCompleted}/{userData.modulesTotal}</p>
+            <p className="ml-auto text-lg font-semibold">prova</p>
           </div>
           
           <div className="flex flex-col space-y-4">
-            <button className="bg-my-dark-yellow-200 text-black font-semibold py-3 rounded-2xl" onClick={() => navigate("/homepage")}>
+            <button className="bg-my-dark-yellow-200 text-black font-semibold py-3 rounded-2xl" onClick={handleHomeButton}>
               Home
             </button>
             <button className="bg-my-dark-yellow-200 text-black font-semibold py-3 rounded-2xl">

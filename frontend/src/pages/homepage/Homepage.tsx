@@ -5,12 +5,23 @@ import avatar from "../../assets/icone/avatar2.svg"
 import { moduli } from "./moduli"
 import { useGameProgressContext } from "../../context/game-progress/useGameProgressContext"
 import { useUserContext } from "../../context/user/useUserContext"
+import { useCompletedApp } from "../../hooks/fetch/useCompletedApp"
+import { useEffect } from "react"
 
 export function Homepage() {
 	
 	const { progress, setProgress } = useGameProgressContext()
 	const {overall, ...restOfProgress} = progress
 	const { user, setUser } = useUserContext()
+	const {condition, fetchData} = useCompletedApp()
+
+
+	useEffect(() => {
+		if(condition && !user.is_completed){
+			fetchData()
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	},[condition, user.is_completed])
 
 	const formattedValue = (value: number): number => {
 		if (value === 0) {

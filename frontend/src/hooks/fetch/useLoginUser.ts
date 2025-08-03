@@ -26,12 +26,13 @@ export function useLoginUser(){
           name: data.name,
           email: data.email,
           nickname: data.nickname,
+          is_completed: data.is_completed,
           token: data.token
         })
 			}
 
 		} catch (err) {
-			console.log(err)
+			console.error(err)
 			showToast("Login non avvenuto", "danger")
 
 		}

@@ -6,6 +6,7 @@ import {BrowserRouter} from "react-router-dom";
 import { ArgumentProvider } from "./context/argument/ArgumentProvider.tsx";
 import { GameProgressProvider } from "./context/game-progress/GameProgressProvider.tsx";
 import { UserProvider } from "./context/user/UserProvider.tsx";
+import EndCourse from "./modals/end-course/EndCourse.tsx";
 
 createRoot(document.getElementById("root")!).render(
 	<BrowserRouter>
@@ -13,6 +14,7 @@ createRoot(document.getElementById("root")!).render(
 			<GameProgressProvider>
 				<ArgumentProvider>
 					<App />
+					<EndCourse />
 				</ArgumentProvider>
 			</GameProgressProvider>
 		</UserProvider>

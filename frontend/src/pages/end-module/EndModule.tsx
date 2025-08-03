@@ -1,9 +1,10 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import "./end-module.css"
 import { Link, useLocation } from "react-router-dom"
 import ProgressBar from "../../components/ProgressBar.tsx"
 import { useUserContext } from "../../context/user/useUserContext.ts"
 import { useGameProgressContext } from "../../context/game-progress/useGameProgressContext.ts"
+import { useCompletedApp } from "../../hooks/fetch/useCompletedApp"
 import { moduli } from "../user-page/moduli.ts"
 
 const EndModule = () => {
@@ -13,6 +14,16 @@ const EndModule = () => {
 	const { progress } = useGameProgressContext()
 	const { overall } = progress
 	const result = overall + quizResult
+	const { condition, fetchData } = useCompletedApp()
+
+	// Controlla se tutti i moduli sono completati quando si mostra il risultato
+	// Solo se l'utente non ha già completato il corso
+	useEffect(() => {
+		if (showResults && condition && !user.is_completed) {
+			fetchData()
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [showResults, condition])
 
 	const handleShowResult = () => {
 		setShowResults(true)

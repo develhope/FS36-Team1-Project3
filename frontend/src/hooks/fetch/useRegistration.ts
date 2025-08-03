@@ -19,11 +19,10 @@ export function useRegistration(){
 		try {
 			const result = await axios.post("http://localhost:3000/api/users/create-user", requestBody);
 			setUser(result.data)
-			console.log(result)
 			showToast("Registrazione avvenuta con successo", "success")
 
 		} catch (err) {
-			console.log(err)
+			console.error(err)
 			showToast("Registrazione non avvenuta", "danger")
 		}
 	}
