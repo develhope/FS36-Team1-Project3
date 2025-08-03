@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom"
 import ProgressBar from "../../components/ProgressBar.tsx"
 import { useUserContext } from "../../context/user/useUserContext.ts"
 import { useGameProgressContext } from "../../context/game-progress/useGameProgressContext.ts"
+import { moduli } from "../user-page/moduli.ts"
 
 const EndModule = () => {
 	const [showResults, setShowResults] = useState(false)
@@ -29,8 +30,8 @@ const EndModule = () => {
 					<article className="w-full bg-white rounded-2xl p-10 mb-8 shadow-lg animate-scale-in min-h-[420px]">
 						<div className="bg-purple-500 rounded-2xl px-10 py-6 relative mb-8">
 							<div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
-								<div className="w-20 h-20 bg-gradient-to-br from-pink-300 to-purple-300 rounded-xl flex items-center justify-center border-3 border-white shadow-md">
-									<span className="text-purple-600 font-bold text-3xl">👤</span>
+								<div className="w-20 h-20 bg-gradient-to-br from-pink-300 to-purple-300 rounded-full flex items-center justify-center border-3 border-white shadow-md">
+										<img src={moduli.avatar} alt="user_avatar" />
 								</div>
 							</div>
 
