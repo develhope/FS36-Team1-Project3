@@ -13,7 +13,6 @@ const EndModule = () => {
 	const { user } = useUserContext()
 	const { progress } = useGameProgressContext()
 	const { overall } = progress
-	const result = overall + quizResult
 	const { condition, fetchData } = useCompletedApp()
 
 	// Controlla se tutti i moduli sono completati quando si mostra il risultato
@@ -49,7 +48,7 @@ const EndModule = () => {
 							<div className="text-center pt-10">
 								<h2 className="text-white font-bold text-2xl mb-2">{user.name}</h2>
 								<p className="text-purple-200 text-lg mb-2">Rank</p>
-								<p className="text-white font-bold text-3xl">{result}</p>
+								<p className="text-white font-bold text-3xl">{overall}</p>
 							</div>
 						</div>
 
