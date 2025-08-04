@@ -125,7 +125,6 @@ const Modal = ({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) =>
           className="text-2xl font-bold text-gray-900 mb-3 flex items-center justify-center gap-2"
         >
           CONGRATULAZIONI!
-          <div className="w-4 h-4 bg-black rounded-sm"></div>
         </h2>
         
         <p 
