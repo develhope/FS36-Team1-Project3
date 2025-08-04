@@ -14,7 +14,6 @@ const EndCourse = () => {
   useEffect(() => {
     // Mostra la modale quando tutti i moduli sono completati
     if (allModulesCompleted) {
-      console.log("Tutti i moduli completati - mostrando modale");
       setIsModalOpen(true);
     }
   }, [allModulesCompleted]);
